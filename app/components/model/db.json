@@ -1,0 +1,34 @@
+{
+    "categories": [
+        {
+            "id": 1,
+            "name": "Hats",
+            "imageUrl": "https://market.marmelada.co.il/photos/2432253.jpg"
+        },
+        {
+            "id": 2,
+            "name": "Clothes",
+            "imageUrl": "https://market.marmelada.co.il/photos/2432253.jpg"
+        },
+        {
+            "id": 3,
+            "name": "Covers",
+            "imageUrl": "https://market.marmelada.co.il/photos/2432253.jpg"
+        },
+        {
+            "id": 4,
+            "name": "Hdgdfg",
+            "imageUrl": "https://market.marmelada.co.il/photos/2432253.jpg"
+        },
+        {
+            "id": 5,
+            "name": "Cfxgfhs",
+            "imageUrl": "https://market.marmelada.co.il/photos/2432253.jpg"
+        },
+        {
+            "id": 6,
+            "name": "Dsdsghrfthj",
+            "imageUrl": "https://market.marmelada.co.il/photos/2432253.jpg"
+        }
+    ]
+}
