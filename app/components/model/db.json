@@ -8,27 +8,52 @@
         {
             "id": 2,
             "name": "Clothes",
-            "imageUrl": "https://market.marmelada.co.il/photos/2432253.jpg"
+            "imageUrl": "https://www.hodoclothes.com/wp-content/uploads/2018/05/Sample-Display.jpg"
         },
         {
             "id": 3,
-            "name": "Covers",
-            "imageUrl": "https://market.marmelada.co.il/photos/2432253.jpg"
+            "name": "Napkins",
+            "imageUrl": "https://www.topp-kreativ.de/media/image/80/ab/01/Kloeppeln_band-1195986_1920.jpg"
         },
         {
             "id": 4,
-            "name": "Hdgdfg",
-            "imageUrl": "https://market.marmelada.co.il/photos/2432253.jpg"
+            "name": "Beads",
+            "imageUrl": "https://cdn.shopify.com/s/files/1/1346/1927/files/Mothersday-2017_CollectionBanner_450px_1600x_f871c84a-4cea-4338-bc6b-10c76f040bb1_2048x2048.jpg"
         },
         {
             "id": 5,
-            "name": "Cfxgfhs",
-            "imageUrl": "https://market.marmelada.co.il/photos/2432253.jpg"
+            "name": "Furniture",
+            "imageUrl": "https://market.marmelada.co.il/photos/2437858.jpg"
         },
         {
             "id": 6,
-            "name": "Dsdsghrfthj",
+            "name": "Accessoires",
             "imageUrl": "https://market.marmelada.co.il/photos/2432253.jpg"
+        }
+    ],
+    "stores": [
+        {
+            "id": 1,
+            "name": "Abc Def",
+            "url": "abcdef",
+            "rating": 2,
+            "categories": [
+                1,
+                2
+            ]
+        }
+    ],
+    "products": [
+        {
+            "id": 1,
+            "name": "Bracelet",
+            "description": "bala knjakbnkds kjds fk dfk f gfke ;re g",
+            "image": "",
+            "store": 1,
+            "categories": [
+                4,
+                6
+            ]
         }
     ]
 }
