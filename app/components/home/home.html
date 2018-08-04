@@ -2,15 +2,17 @@
 <div class="container">
     <div>
         <div ng-controller="categoryGallery">
-            <slick autoplay="true" speed="600" class="slider single-item">
-                <div ng-repeat="cat in categories | limitTo : 3">
-                    <div class="cat-slide" style="background-image: url({{cat.imageUrl}})" ng-click="select(cat.id)">
-                        <h1>
-                            {{cat.name}}
-                        </h1>
+            <div ng-if="categories">
+                <slick autoplay="true" speed="600" class="slider single-item">
+                    <div ng-repeat="cat in categories | limitTo : 3">
+                        <div class="cat-slide" style="background-image: url({{cat.imageUrl}})" ng-click="select(cat.id)">
+                            <h1>
+                                {{cat.name}}
+                            </h1>
+                        </div>
                     </div>
-                </div>
-            </slick>
+                </slick>
+            </div>
         </div>
         <div class="mt-2 d-flex flex-column align-items-center">
             <button type="button" name="allCategories" id="allCategories" class="btn btn-primary" ng-click="allCategories()">All Categories</button>
@@ -18,7 +20,7 @@
     </div>
     <div>
         <div>
-            New Products Cards 
+            New Products Cards
         </div>
         <button type="button" name="allCategories" id="allCategories" class="btn btn-warning">More</button>
     </div>

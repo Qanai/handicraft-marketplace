@@ -8,7 +8,7 @@ app.controller("categoryGallery", ["$scope", "$location", "$log", "category", fu
         }
     );
 
-    $scope.select = function(id) {
+    $scope.select = function (id) {
         $location.path("/category/" + id);
     }
 }]);

@@ -8,12 +8,12 @@ app.factory("category", ["$http", "$q", "$log", "dataSource", function ($http, $
     function getAll() {
         var async = $q.defer();
 
-        // $http.get(dataSource.databaseUrl + "categories").then(
-        $http.get(dataSource.databaseUrl).then(
+        $http.get(dataSource.databaseUrl + "categories").then(
+        // $http.get(dataSource.databaseUrl).then(
             function (response) {
                 var categories = [];
 
-                response.data.categories.forEach(function (category) {
+                response.data.forEach(function (category) {
                     categories.push(new Category(category));
                 });
 
