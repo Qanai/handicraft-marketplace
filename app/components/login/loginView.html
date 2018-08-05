@@ -1,0 +1,37 @@
+<navbar></navbar>
+<div class="container mt-4">
+    <div class="row">
+        <div class="col-6">
+            <h4>Sign Up</h4>
+            <button type="button" class="btn btn-success" ng-click="signup()">Create Account</button>
+        </div>
+        <div class="col-6">
+            <h4>Sign In</h4>
+            <div class="alert alert-danger alert-dismissible fade show" ng-show="failedLogin" role="alert">
+                <strong>Invalid credentials</strong>
+                <p>
+                    You should check in on some of those fields below.
+                </p>
+            </div>
+            <form>
+                <div class="form-group row">
+                    <label for="inputEmail3" class="col-sm-2 col-form-label">Email</label>
+                    <div class="col-sm-10">
+                        <input type="email" class="form-control" id="inputEmail3" placeholder="Email" ng-model="email">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="inputPassword3" class="col-sm-2 col-form-label">Password</label>
+                    <div class="col-sm-10">
+                        <input type="password" class="form-control" id="inputPassword3" placeholder="Password" ng-model="pass">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-sm-10">
+                        <button type="button" class="btn btn-primary" ng-click="signin()">Sign in</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

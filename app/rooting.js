@@ -4,6 +4,10 @@ app.config(["$routeProvider", function ($routeProvider) {
             templateUrl: "app/components/home/home.html",
             controller: "home"
         })
+        .when("/login", {
+            templateUrl: "app/components/login/loginView.html",
+            controller: "login"
+        })
         .when("/categories", {
             templateUrl: "app/components/categories/categoriesView.html",
             controller: "categoryGallery"

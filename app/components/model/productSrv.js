@@ -6,6 +6,7 @@ app.factory("productService", ["$http", "$q", "$log", "dataSource", function ($h
         this.imageUrl = plainProduct.imageUrl;
         this.storeId = plainProduct.storeId;
         this.categoryId = plainProduct.categoryId || [];
+        this.added = plainProduct.added ? new Date(plainProduct.added) : null;
     }
 
     function getByCategory(categoryId) {
