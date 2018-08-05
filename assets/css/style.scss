@@ -1,0 +1,31 @@
+.cat-slide {
+    height: 432px;
+    background-repeat: no-repeat;
+    background-position: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    h1 {
+        color: #96d4f3;
+        text-shadow: 1px 1px 1px #000000;
+        font-size: 5rem;
+    }
+}
+
+.slick-prev {
+    left: 25px;
+}
+
+.slick-next {
+    right: 25px;
+}
+
+.slick-prev:before, .slick-next:before {
+    color: darkgreen;
+}
+
+.card {
+    cursor: pointer;
+}

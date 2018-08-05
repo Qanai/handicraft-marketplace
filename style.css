@@ -1,30 +1,32 @@
 .cat-slide {
-    height: 432px;
-    background-repeat: no-repeat;
-    background-position: center;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+  height: 432px;
+  background-repeat: no-repeat;
+  background-position: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
-
-.cat-slide>h1 {
-    color: #96d4f3;
-    text-shadow: 1px 1px 1px #000000;
+.cat-slide h1 {
+  color: #96d4f3;
+  text-shadow: 1px 1px 1px #000000;
+  font-size: 5rem;
 }
 
 .slick-prev {
-    left: 25px;
+  left: 25px;
 }
 
 .slick-next {
-    right: 25px;
+  right: 25px;
 }
 
 .slick-prev:before, .slick-next:before {
-    color: darkgreen;
+  color: darkgreen;
 }
 
 .card {
-    cursor: pointer;
+  cursor: pointer;
 }
+
+/*# sourceMappingURL=style.css.map */
