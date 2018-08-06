@@ -18,15 +18,26 @@
             <button type="button" name="allCategories" id="allCategories" class="btn btn-primary" ng-click="allCategories()">All Categories</button>
         </div>
     </div>
-    <div>
-        <div>
-            New Products Cards
+    <div class="products-pane">
+        <div ng-controller="newProducts">
+            <h3>
+                New Products
+            </h3>
+            <div ng-if="products">
+                <slick autoplay="true" autoplaySpeed="5000" speed="1000" slidesToShow="3" slidesToScroll="1">
+                    <div ng-repeat="prod in products">
+                        <div class="card">
+                            <img class="card-img-top" ng-src="{{prod.imageUrl}}" alt="{{prod.name}}">
+                            <div class="card-body">
+                                <h4 class="card-title">{{prod.name}}</h4>
+                                <p class="card-text">{{prod.description}}</p>
+                            </div>
+                        </div>
+                    </div>
+                </slick>
+            </div>
         </div>
         <button type="button" name="allCategories" id="allCategories" class="btn btn-warning">More</button>
-    </div>
-    <div>
-        <div>Most Popular Products Cards</div>
-        <button type="button" name="allCategories" id="allCategories" class="btn btn-success">More</button>
     </div>
     <div>
         <div>Our Stores</div>

@@ -29,7 +29,28 @@ app.factory("productService", ["$http", "$q", "$log", "dataSource", function ($h
         return async.promise;
     }
 
+    function getNew(params) {
+        var async = $q.defer();
+
+        $http.get(dataSource.databaseUrl + "products?_sort=added&_order=desc&_limit=10").then(
+            function (response) {
+                var products = [];
+                response.data.forEach(function (prod) {
+                    products.push(new Product(prod));
+                });
+                async.resolve(products);
+            },
+            function (err) {
+                $log.error(err);
+                async.reject("Failed loading new products");
+            }
+        );
+
+        return async.promise;
+    }
+
     return {
-        getByCategory: getByCategory
+        getByCategory: getByCategory,
+        getNew: getNew
     }
 }]);

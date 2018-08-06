@@ -21,7 +21,7 @@ app.factory("category", ["$http", "$q", "$log", "dataSource", function ($http, $
             },
             function (err) {
                 $log.error(err);
-                async.reject("Error: failed loading countries");
+                async.reject("Failed loading categories");
             }
         );
 

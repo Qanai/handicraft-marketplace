@@ -17,7 +17,8 @@ app.config(["$routeProvider", function ($routeProvider) {
             controller: "categoryGallery"
         })
         .when("/category/:categoryId", {
-            templateUrl: "app/components/categories/categoryPageView.html"
+            templateUrl: "app/components/categories/categoryPageView.html",
+            controller: "categoryProducts"
         })
         .otherwise({
             redirectTo: "/"
