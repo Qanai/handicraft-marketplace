@@ -8,6 +8,10 @@ app.config(["$routeProvider", function ($routeProvider) {
             templateUrl: "app/components/login/loginView.html",
             controller: "login"
         })
+        .when("/account/:spec", {
+            templateUrl: "app/components/login/accountView.html",
+            controller: "account"
+        })
         .when("/categories", {
             templateUrl: "app/components/categories/categoriesView.html",
             controller: "categoryGallery"

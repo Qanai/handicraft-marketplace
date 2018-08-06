@@ -1,9 +1,9 @@
 <navbar></navbar>
 <div class="container">
-    <div>
+    <div class="categories-pane">
         <div ng-controller="categoryGallery">
             <div ng-if="categories">
-                <slick autoplay="true" speed="600" class="slider single-item">
+                <slick autoplay="true" autoplaySpeed="5000" speed="1000" class="slider single-item">
                     <div ng-repeat="cat in categories | limitTo : 3">
                         <div class="cat-slide" style="background-image: url({{cat.imageUrl}})" ng-click="select(cat.id)">
                             <h1>
