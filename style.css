@@ -22,12 +22,17 @@
   right: 25px;
 }
 
-.slick-prev:before, .slick-next:before {
+.slick-prev:before,
+.slick-next:before {
   color: darkgreen;
 }
 
 .card {
   cursor: pointer;
+}
+
+.products-pane .card {
+  padding: 10px;
 }
 
 /*# sourceMappingURL=style.css.map */

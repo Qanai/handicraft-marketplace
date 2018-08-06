@@ -24,7 +24,7 @@
                 New Products
             </h3>
             <div ng-if="products">
-                <slick autoplay="true" autoplaySpeed="5000" speed="1000" slidesToShow="3" slidesToScroll="1">
+                <slick speed="1000" infinite="true" slides-to-show="3" slides-to-scroll="1">
                     <div ng-repeat="prod in products">
                         <div class="card">
                             <img class="card-img-top" ng-src="{{prod.imageUrl}}" alt="{{prod.name}}">
@@ -37,10 +37,12 @@
                 </slick>
             </div>
         </div>
-        <button type="button" name="allCategories" id="allCategories" class="btn btn-warning">More</button>
+        <div class="mt-2 d-flex flex-column align-items-center">
+            <button type="button" name="moreProducts" id="moreProducts" class="btn btn-warning" ng-click="moreProducts()">More</button>
+        </div>
     </div>
     <div>
         <div>Our Stores</div>
-        <button type="button" name="allCategories" id="allCategories" class="btn btn-default">Browse stores</button>
+        <button type="button" name="browseStores" id="browseStores" class="btn btn-default">Browse stores</button>
     </div>
 </div>

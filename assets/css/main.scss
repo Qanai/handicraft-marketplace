@@ -7,7 +7,6 @@
     justify-content: center;
     align-items: center;
     cursor: pointer;
-
     h1 {
         color: #96d4f3;
         text-shadow: 1px 1px 1px #000000;
@@ -23,10 +22,18 @@
     right: 25px;
 }
 
-.slick-prev:before, .slick-next:before {
+.slick-prev:before,
+.slick-next:before {
     color: darkgreen;
 }
 
 .card {
     cursor: pointer;
+}
+
+.products-pane {
+    .card {
+        padding: 10px;
+        // margin: 10px;
+    }
 }

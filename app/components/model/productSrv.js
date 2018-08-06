@@ -29,10 +29,12 @@ app.factory("productService", ["$http", "$q", "$log", "dataSource", function ($h
         return async.promise;
     }
 
-    function getNew(params) {
+    function getNew(limit) {
         var async = $q.defer();
 
-        $http.get(dataSource.databaseUrl + "products?_sort=added&_order=desc&_limit=10").then(
+        limit = limit || 100;
+
+        $http.get(dataSource.databaseUrl + "products?_sort=added&_order=desc&_limit=" + limit).then(
             function (response) {
                 var products = [];
                 response.data.forEach(function (prod) {
