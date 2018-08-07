@@ -10,6 +10,10 @@ app.factory("user", ["$http", "$q", "$log", "role", "dataSource", function ($htt
 
     var activeUser = null;
 
+    function create(plainObj) {
+        return plainObj ? new User(plainObj) : null;
+    }
+
     function login(email, password) {
         var async = $q.defer();
 
@@ -74,6 +78,7 @@ app.factory("user", ["$http", "$q", "$log", "role", "dataSource", function ($htt
     }
 
     return {
+        create: create,
         login: login,
         logout: logout,
         isAuthenticated: isAuthenticated,

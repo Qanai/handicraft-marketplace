@@ -1,0 +1,11 @@
+<div class="card" ng-click="buy(product.id)">
+    <img class="card-img-top" ng-src="{{product.imageUrl}}" alt="{{product.name}}">
+    <div class="card-body">
+        <h4 class="card-title">{{product.name}}</h4>
+        <p class="card-text">{{product.description}}</p>
+    </div>
+    <div class="card-footer">
+        <p>{{product.store.name}}</p>
+        <p>{{product.price | currency : "ILS "}}</p>
+    </div>
+</div>

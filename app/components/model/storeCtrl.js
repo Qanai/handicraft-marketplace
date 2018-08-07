@@ -1,4 +1,17 @@
-app.factory("store", ["$http", "$q", "$log", "dataSource", function ($http, $q, $log, dataSource) {
+app.factory("store", ["$http", "$q", "$log", "dataSource", "user", function ($http, $q, $log, dataSource, user) {
+    function Store(plainStore) {
+        this.id = plainStore.id;
+        this.name = plainStore.name;
+        this.url = plainStore.url
+        this.rating = plainStore.rating;
+        this.categoryId = plainStore.categoryId || [];
+        this.userId = plainStore.userId;
+        this.user = user.create(plainStore.user);
+    }
+
+    function create(plainObj) {
+        return plainObj ? new Store(plainObj) : null;
+    }
 
     function getAll() {
         var async = $q.defer();
@@ -32,6 +45,7 @@ app.factory("store", ["$http", "$q", "$log", "dataSource", function ($http, $q, 
     }
 
     return {
+        create: create,
         getAll: getAll,
         getByCategory: getByCategory
     }

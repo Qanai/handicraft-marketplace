@@ -19,20 +19,14 @@
         </div>
     </div>
     <div class="products-pane">
-        <div ng-controller="newProducts">
+        <div ng-controller="newProducts" ng-init="init(10)">
             <h3>
                 New Products
             </h3>
             <div ng-if="products">
                 <slick speed="1000" infinite="true" slides-to-show="3" slides-to-scroll="1">
                     <div ng-repeat="prod in products">
-                        <div class="card">
-                            <img class="card-img-top" ng-src="{{prod.imageUrl}}" alt="{{prod.name}}">
-                            <div class="card-body">
-                                <h4 class="card-title">{{prod.name}}</h4>
-                                <p class="card-text">{{prod.description}}</p>
-                            </div>
-                        </div>
+                        <product-card product="prod"></product-card>
                     </div>
                 </slick>
             </div>

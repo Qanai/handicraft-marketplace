@@ -2,22 +2,23 @@
 <div class="container mt-4">
     <h3></h3>
     <div class="row">
-        <div class="col-md-4">
-            <p>Filtering</p>
+        <div class="col-md-2">
             <p>Stores</p>
         </div>
         <div class="col-md-8">
             <div class="row">
-                <div class="col-md-3 col-sm-6 d-flex justify-content-stretch mb-3" ng-repeat="prod in products">
-                    <div class="card">
-                        <img class="card-img-top" ng-src="{{prod.imageUrl}}" alt="alt">
-                        <div class="card-body">
-                            <h4 class="card-title">{{prod.name}}</h4>
-                            <p class="card-text">{{prod.description}}</p>
-                        </div>
+                <div class="col">
+                        <p>Filtering</p>
                     </div>
+            </div>
+            <div class="row">
+                <div class="col-md-3 col-sm-6 d-flex justify-content-stretch mb-3" ng-repeat="prod in products">
+                    <product-card product="prod"></product-card>
                 </div>
             </div>
+        </div>
+        <div class="col-md-2">
+            <p>Categories</p>
         </div>
     </div>
 </div>

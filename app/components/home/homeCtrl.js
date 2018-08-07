@@ -4,6 +4,6 @@ app.controller("home", ["$scope", "$location", function ($scope, $location) {
     }
 
     $scope.moreProducts = function () {
-        $location.path("/category/0");
+        $location.path("/newproducts");
     }
 }])
