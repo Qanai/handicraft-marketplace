@@ -1,9 +1,18 @@
 app.factory("store", ["$http", "$q", "$log", "dataSource", "user", function ($http, $q, $log, dataSource, user) {
+    function Address(plainAddr) {
+        this.street = plainAddr.street;
+        this.city = plainAddr.city;
+        this.country = plainAddr.country;
+    }
+
     function Store(plainStore) {
         this.id = plainStore.id;
         this.name = plainStore.name;
-        this.url = plainStore.url
+        this.about = plainStore.about;
+        this.address = new Address(plainStore.address);
         this.rating = plainStore.rating;
+        this.sales = plainStore.sales;
+        this.joined = plainStore.joined ? (new Date(plainStore.joined)) : null;
         this.categoryId = plainStore.categoryId || [];
         this.userId = plainStore.userId;
         this.user = user.create(plainStore.user);
@@ -44,9 +53,31 @@ app.factory("store", ["$http", "$q", "$log", "dataSource", "user", function ($ht
         return async.promise;
     }
 
+    function getById(storeId) {
+        var async = $q.defer();
+
+        $http.get(dataSource.databaseUrl + "stores/" + storeId + "?_expand=user").then(
+            function (response) {
+                if (response && response.data) {
+                    var store = new Store(response.data);
+                    async.resolve(store);
+                } else {
+                    async.reject("Store not found: " + storeId);
+                }
+            },
+            function (err) {
+                $log.error(err);
+                async.reject("Failed loadin store: " + storeId);
+            }
+        );
+
+        return async.promise;
+    }
+
     return {
         create: create,
         getAll: getAll,
-        getByCategory: getByCategory
+        getByCategory: getByCategory,
+        getById: getById
     }
 }]);

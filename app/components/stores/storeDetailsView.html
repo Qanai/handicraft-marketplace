@@ -1,0 +1,33 @@
+<navbar></navbar>
+<div class="container mt-3">
+    <h4>
+        {{store.name}}
+    </h4>
+    <p>
+        {{store.about}}
+    </p>
+    <div>
+        {{store.address}}
+    </div>
+    <div>
+        <span>Rating:</span> {{store.rating}}
+    </div>
+    <div>
+        <span>Sales:</span> {{store.sales}}
+    </div>
+    <div>
+        <span>Marketplace since</span> {{store.joined | date}}
+    </div>
+    {{store.categoryId}}
+    <div>
+        {{store.user.name}}
+    </div>
+    <div class="mt-3">
+        <h5>Products</h5>
+        <div class="row justify-content-center">
+            <div class="col-md-2 col-sm-6 d-flex justify-content-stretch mb-3" ng-repeat="prod in store.products">
+                <product-card product="prod"></product-card>
+            </div>
+        </div>
+    </div>
+</div>

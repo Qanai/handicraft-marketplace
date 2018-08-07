@@ -14,7 +14,12 @@
         <div class="col-md-6">
             <div class="d-flex flex-column">
                 <div>
-                    {{product.name}}
+                    <h5>
+                        {{product.name}}
+                    </h5>
+                </div>
+                <div>
+                    <p>{{product.description}}</p>
                 </div>
                 <div>
                     {{product.price | currency : "₪"}}

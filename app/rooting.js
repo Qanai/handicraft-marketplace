@@ -28,6 +28,10 @@ app.config(["$routeProvider", function ($routeProvider) {
             templateUrl: "app/components/products/productDetailsView.html",
             controller: "productDetails"
         })
+        .when("/store/:storeId", {
+            templateUrl: "app/components/stores/storeDetailsView.html",
+            controller: "storeDetails"
+        })
         .otherwise({
             redirectTo: "/"
         })

@@ -68,7 +68,33 @@ app.factory("productService", ["$http", "$q", "$log", "dataSource", "store", fun
             },
             function (err) {
                 $log.error(err);
-                async.reject("Faliled to load produtc: " + productId);
+                async.reject("Faliled to load product: " + productId);
+            }
+        );
+
+        return async.promise;
+    }
+
+    function getByStore(storeId) {
+        var async = $q.defer();
+
+        $http.get(dataSource.databaseUrl + "products?storeId=" + storeId).then(
+            function (response) {
+                if (response && response.data && response.data.length > 0) {
+                    var prods = [];
+                    response.data.forEach(function (p) {
+                        var storeProd = new Product(p);
+                        prods.push(storeProd);
+                    });
+
+                    async.resolve(prods);
+                } else {
+                    async.reject("Store products not found");
+                }
+            },
+            function (err) {
+                $log.error(err);
+                async.reject("Faliled to load products (store: " + storeId + ")");
             }
         );
 
@@ -78,6 +104,7 @@ app.factory("productService", ["$http", "$q", "$log", "dataSource", "store", fun
     return {
         getByCategory: getByCategory,
         getNew: getNew,
-        getById: getById
+        getById: getById,
+        getByStore: getByStore
     }
 }]);
