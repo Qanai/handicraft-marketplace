@@ -22,7 +22,7 @@
     <div>
         {{store.user.name}}
     </div>
-    <div class="mt-3">
+    <div class="mt-3" ng-show="store.products">
         <h5>Products</h5>
         <div class="row justify-content-center">
             <div class="col-md-2 col-sm-6 d-flex justify-content-stretch mb-3" ng-repeat="prod in store.products">

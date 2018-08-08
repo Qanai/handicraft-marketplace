@@ -42,7 +42,15 @@ app.factory("store", ["$http", "$q", "$log", "dataSource", "user", function ($ht
 
         $http.get(dataSource.databaseUrl + "stores?categoryId_like=" + categoryId + "&_expand=user").then(
             function (response) {
-                async.resolve();
+                if (response && response.data) {
+                    var catStores = [];
+                    response.data.forEach(function (s) {
+                        catStores.push(new Store(s));
+                    });
+                    async.resolve(catStores);
+                } else {
+                    async.reject("Stores not found - category: " + categoryId);
+                }
             },
             function (err) {
                 $log.error(err);

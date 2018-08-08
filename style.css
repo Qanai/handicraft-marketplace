@@ -27,4 +27,8 @@
   padding: 10px;
 }
 
+.store-list .list-group-item {
+  border: 0;
+}
+
 /*# sourceMappingURL=style.css.map */
