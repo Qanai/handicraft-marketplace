@@ -1,0 +1,11 @@
+<div class="row">
+    <div class="col-md-4 d-flex justify-content-stretch" ng-repeat="store in list">
+        <div class="card" ng-click="displayStore(store.id)">
+            <!-- <img class="card-img-top" ng-src="" alt="{{store.name}}"> -->
+            <div class="card-body">
+                <h4 class="card-title">{{store.name}}</h4>
+                <p class="card-text">{{store.about}}</p>
+            </div>
+        </div>
+    </div>
+</div>

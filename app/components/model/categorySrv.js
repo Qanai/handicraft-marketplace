@@ -9,7 +9,7 @@ app.factory("category", ["$http", "$q", "$log", "dataSource", function ($http, $
         var async = $q.defer();
 
         $http.get(dataSource.databaseUrl + "categories").then(
-        // $http.get(dataSource.databaseUrl).then(
+            // $http.get(dataSource.databaseUrl).then(
             function (response) {
                 var categories = [];
 
@@ -28,7 +28,39 @@ app.factory("category", ["$http", "$q", "$log", "dataSource", function ($http, $
         return async.promise;
     }
 
+    function getListByIds(ids) {
+        var async = $q.defer();
+
+        var qryIds = ids.map(function (id) {
+            return "id=" + id;
+        });
+
+        var query = "categories?" + qryIds.join("&");
+
+        $http.get(dataSource.databaseUrl + query).then(
+            function (response) {
+                if (response && response.data && response.data.length > 0) {
+                    var catList = [];
+                    response.data.forEach(function (c) {
+                        catList.push(new Category(c));
+                    });
+
+                    async.resolve(catList);
+                } else {
+                    async.reject("Not found");
+                }
+            },
+            function(err){
+                $log.error(err);
+                async.reject("Failed loading categories: " + ids.join(", "));
+            }
+        );
+
+        return async.promise;
+    }
+
     return {
-        getAll: getAll
+        getAll: getAll,
+        getListByIds: getListByIds
     }
 }]);

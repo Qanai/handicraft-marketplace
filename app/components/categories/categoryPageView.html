@@ -12,13 +12,19 @@
                     </div>
             </div>
             <div class="row">
+                <div ng-show="canDisplay()">
+                    <h5>No products found</h5>
+                </div>
                 <div class="col-md-3 col-sm-6 d-flex justify-content-stretch mb-3" ng-repeat="prod in products">
                     <product-card product="prod"></product-card>
                 </div>
             </div>
         </div>
         <div class="col-md-2">
-            <p>Categories</p>
+            <div ng-if="products">
+                <category-list resource="products"></category-list>
+            </div>
+            <button type="button" class="btn btn-outline-warning mt-5" ng-click="moreCategories()">More Categories</button>
         </div>
     </div>
 </div>

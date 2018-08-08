@@ -82,10 +82,36 @@ app.factory("store", ["$http", "$q", "$log", "dataSource", "user", function ($ht
         return async.promise;
     }
 
+    function getByUser(userId) {
+        var async = $q.defer();
+
+        $http.get(dataSource.databaseUrl + "stores?userId=" + userId).then(
+            function (response) {
+                if (response && response.data && response.data.length > 0) {
+                    var userStores = [];
+                    response.data.forEach(function (s) {
+                        userStores.push(new Store(s));
+                    });
+
+                    async.resolve(userStores);
+                } else {
+                    async.reject("Not found stores for user: " + userId);
+                }
+            },
+            function (err) {
+                $log.error(err);
+                async.reject("Failed loading stores f user: " + userId);
+            }
+        );
+
+        return async.promise;
+    }
+
     return {
         create: create,
         getAll: getAll,
         getByCategory: getByCategory,
-        getById: getById
+        getById: getById,
+        getByUser: getByUser
     }
 }]);

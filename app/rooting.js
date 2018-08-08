@@ -32,6 +32,10 @@ app.config(["$routeProvider", function ($routeProvider) {
             templateUrl: "app/components/stores/storeDetailsView.html",
             controller: "storeDetails"
         })
+        .when("/dashboard", {
+            templateUrl: "app/components/dashboard/dashboardView.html",
+            controller: "dashboard"
+        })
         .otherwise({
             redirectTo: "/"
         })

@@ -1,7 +1,7 @@
 <navbar></navbar>
-<div class="container">
+<div class="container mb-3">
     <div class="categories-pane">
-        <div ng-controller="categoryGallery">
+        <div ng-controller="categoryGallery" ng-init="init(true)">
             <div ng-if="categories">
                 <slick autoplay="true" autoplaySpeed="5000" speed="1000" class="slider single-item">
                     <div ng-repeat="cat in categories | limitTo : 3">
@@ -36,12 +36,12 @@
         </div>
     </div>
     <div class="stores-pane">
-        <div>
-            <h3>Our Stores</h3>
-            <div></div>
+        <div ng-controller="storeGallery">
+            <h3>Check our stores</h3>
+            <store-card list="stores"></store-card>
         </div>
-        <div class="mt-2 d-flex flex-column align-items-center">
+        <!-- <div class="mt-2 d-flex flex-column align-items-center">
             <button type="button" name="browseStores" id="browseStores" class="btn btn-default">Browse stores</button>
-        </div>
+        </div> -->
     </div>
 </div>

@@ -18,7 +18,7 @@
                     <strong>{{userName()}}</strong>
                 </a>
             </li>
-            <li class="nav-item">
+            <li class="nav-item" ng-hide="isAuthorized('seller')">
                 <a class="nav-link btn btn-outline-warning" href="#!/account/sell">Sell with us</a>
             </li>
         </ul>

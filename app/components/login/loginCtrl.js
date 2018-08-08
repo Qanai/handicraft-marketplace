@@ -5,7 +5,15 @@ app.controller("login", ["$scope", "$location", "user", function ($scope, $locat
         $scope.failedLogin = false;
         user.login($scope.email, $scope.pass).then(
             function (activeUser) {
-                $location.path("/"); //TODO: switch redirect by role
+                switch (activeUser.role.name) {
+                    case "Seller":
+                        $location.path("/dashboard");
+                        break;
+
+                    default:
+                        $location.path("/");
+                        break;
+                }
             },
             function (err) {
                 $log.error(err);
