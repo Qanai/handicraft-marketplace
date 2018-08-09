@@ -1,15 +1,15 @@
 app.factory("store", ["$http", "$q", "$log", "dataSource", "user", function ($http, $q, $log, dataSource, user) {
     function Address(plainAddr) {
-        this.street = plainAddr.street;
-        this.city = plainAddr.city;
-        this.country = plainAddr.country;
+        this.street = plainAddr ? plainAddr.street : "";
+        this.city = plainAddr ? plainAddr.city : "";
+        this.country = plainAddr ? plainAddr.country : "";
     }
 
     function Store(plainStore) {
         this.id = plainStore.id;
         this.name = plainStore.name;
         this.about = plainStore.about;
-        this.imageUrl = plainStore.imageUrl || ("https://loremflickr.com/620/510/" + plainStore.name.split(' ')[0] + "?random=" + plainStore.id);
+        this.imageUrl = plainStore.imageUrl || (plainStore.id ? ("https://loremflickr.com/620/510/" + plainStore.name.split(' ')[0] + "?random=" + plainStore.id) : "");
         this.address = new Address(plainStore.address);
         this.rating = plainStore.rating;
         this.sales = plainStore.sales;
@@ -20,7 +20,11 @@ app.factory("store", ["$http", "$q", "$log", "dataSource", "user", function ($ht
     }
 
     function create(plainObj) {
-        return plainObj ? new Store(plainObj) : null;
+        if (!plainObj) {
+            plainObj = {};
+        }
+        // return plainObj ? new Store(plainObj) : null;
+        return new Store(plainObj);
     }
 
     function getAll() {
