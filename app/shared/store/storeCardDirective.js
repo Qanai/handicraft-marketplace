@@ -1,7 +1,8 @@
 app.directive("storeCard", function(){
     return {
         scope: {
-            list: "="
+            list: "=",
+            manage: "@"
         },
         templateUrl: "app/shared/store/storeCardView.html",
         controller: "storeCardCtrl",

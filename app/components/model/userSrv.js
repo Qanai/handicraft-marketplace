@@ -8,7 +8,18 @@ app.factory("user", ["$http", "$q", "$log", "role", "dataSource", function ($htt
         this.role = role.create(plainUser.role);
     }
 
-    var activeUser = null;
+    //var activeUser = null;
+    var activeUser = new User({
+        "name": "Judy Seller",
+        "email": "judy@sell.com",
+        "password": "1234",
+        "roleId": 3,
+        "id": 7,
+        "role": {
+            "id": 3,
+            "name": "Seller"
+        }
+    });
 
     function create(plainObj) {
         return plainObj ? new User(plainObj) : null;
@@ -56,15 +67,15 @@ app.factory("user", ["$http", "$q", "$log", "role", "dataSource", function ($htt
         return isAuthenticated() ? activeUser.role : null;
     }
 
-    function add(userData){
+    function add(userData) {
         var async = $q.defer();
 
         $http.post(dataSource.databaseUrl + "users", userData).then(
-            function(response){
+            function (response) {
                 var newUser = new User(response.data);
                 async.resolve(newUser);
             },
-            function(err){
+            function (err) {
                 $log.error(err);
                 async.reject("Failed creating new user");
             }
@@ -77,6 +88,10 @@ app.factory("user", ["$http", "$q", "$log", "role", "dataSource", function ($htt
         activeUser = null;
     }
 
+    function getActiveUser() {
+        return activeUser;
+    }
+
     return {
         create: create,
         login: login,
@@ -86,6 +101,7 @@ app.factory("user", ["$http", "$q", "$log", "role", "dataSource", function ($htt
         getActiveUserName: getActiveUserName,
         getActiveUserId: getActiveUserId,
         getActiveUserRole: getActiveUserRole,
+        getActiveUser: getActiveUser,
         add: add
     }
 }]);

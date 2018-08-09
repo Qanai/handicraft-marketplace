@@ -9,6 +9,7 @@ app.factory("store", ["$http", "$q", "$log", "dataSource", "user", function ($ht
         this.id = plainStore.id;
         this.name = plainStore.name;
         this.about = plainStore.about;
+        this.imageUrl = plainStore.imageUrl || ("https://loremflickr.com/620/510/" + plainStore.name.split(' ')[0] + "?random=" + plainStore.id);
         this.address = new Address(plainStore.address);
         this.rating = plainStore.rating;
         this.sales = plainStore.sales;

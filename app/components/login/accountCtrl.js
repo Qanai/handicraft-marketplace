@@ -1,30 +1,39 @@
 app.controller("account", ["$scope", "$location", "$routeParams", "$log", "user", "role", function ($scope, $location, $routeParams, $log, user, role) {
+    function init() {
 
-    $log.log($routeParams);
+        // $log.log($routeParams);
 
-    $scope.userRole = user.getActiveUserRole();
+        $scope.user = user.getActiveUser();
+        $scope.userRole = $scope.user ? $scope.user.role : null;
 
-    role.getAll().then(
-        function (roles) {
-            $scope.roles = roles;
-            if ($scope.userRole == null) {
-                switch ($routeParams.spec) {
-                    case "join":
-                        $scope.userRole = getRole("Buyer");
-                        break;
-                    case "sell":
-                        $scope.userRole = getRole("Seller");
-                        break;
-                    default:
-                        $scope.userRole = getRole("Surfer");
-                        break;
+        role.getAll().then(
+            function (roles) {
+                $scope.roles = roles;
+                if ($scope.userRole == null) {
+                    switch ($routeParams.spec) {
+                        case "join":
+                            $scope.userRole = getRole("Buyer");
+                            break;
+                        case "sell":
+                            $scope.userRole = getRole("Seller");
+                            break;
+                        default:
+                            $scope.userRole = getRole("Surfer");
+                            break;
+                    }
+                } else {
+                    for (const key in $scope.user) {
+                        if ($scope.user.hasOwnProperty(key)) {
+                            $scope[key] = $scope.user[key];
+                        }
+                    }
                 }
+            },
+            function (err) {
+                $log.error(err);
             }
-        },
-        function (err) {
-            $log.error(err);
-        }
-    );
+        );
+    }
 
     function getRole(name) {
         for (var i = 0; i < $scope.roles.length; i++) {
@@ -53,4 +62,14 @@ app.controller("account", ["$scope", "$location", "$routeParams", "$log", "user"
             }
         );
     }
+
+    $scope.editAccount = function () {
+        alert("Not implemented");
+    }
+
+    $scope.showDashboard = function () {
+        $location.path("/dashboard");
+    }
+
+    init();
 }]);
