@@ -1,8 +1,12 @@
 <navbar></navbar>
 <div class="container mt-3">
     <h4>Dashboard</h4>
-    <div>
+    <div ng-show="isAuthorized('Seller')">
         <h5>Stores</h5>
-        <store-card list="stores" manage="true"></store-card>        
+        <store-card list="stores" manage="true"></store-card>
+    </div>
+    <div ng-show="isAuthorized('Admin')">
+        <h5>Categories</h5>
+        <category-cards list="categories" manage="true"></category-cards>
     </div>
 </div>

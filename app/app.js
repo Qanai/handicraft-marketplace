@@ -1,1 +1,1 @@
-var app = angular.module("handiMarket", ["ngRoute", "slick"]);
+var app = angular.module("handiMarket", ["ngRoute", "slick", "imageupload"]);

@@ -1,4 +1,4 @@
-app.controller("dashboard", ["$scope", "$location", "$log", "user", "store", function ($scope, $location, $log, user, store) {
+app.controller("dashboard", ["$scope", "$location", "$log", "user", "store", "category", function ($scope, $location, $log, user, store, category) {
     function init() {
         // Checking if the user is logged in, if not navigating back to home page
         if (!user.isAuthenticated()) {
@@ -11,6 +11,20 @@ app.controller("dashboard", ["$scope", "$location", "$log", "user", "store", fun
                 $scope.stores = stores;
             }
         );
+
+        category.getAll().then(
+            function (results) {
+                $scope.categories = results;
+            }
+        );
+    }
+
+    $scope.isAuthenticated = function () {
+        return user.isAuthenticated();
+    }
+
+    $scope.isAuthorized = function (role) {
+        return user.isAuthorized(role);
     }
 
     init();

@@ -9,6 +9,7 @@ app.factory("user", ["$http", "$q", "$log", "role", "dataSource", function ($htt
     }
 
     //var activeUser = null;
+
     var activeUser = new User({
         "name": "Judy Seller",
         "email": "judy@sell.com",
@@ -20,6 +21,18 @@ app.factory("user", ["$http", "$q", "$log", "role", "dataSource", function ($htt
             "name": "Seller"
         }
     });
+
+    // var activeUser = new User({
+    //     "id": 1,
+    //     "name": "Eliyahu Shlieserman",
+    //     "email": "eliyahushli@gmail.com",
+    //     "password": "1234",
+    //     "roleId": 4,
+    //     "role": {
+    //         "id": 4,
+    //         "name": "Admin"
+    //     }
+    // });
 
     function create(plainObj) {
         return plainObj ? new User(plainObj) : null;

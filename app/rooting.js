@@ -20,6 +20,10 @@ app.config(["$routeProvider", function ($routeProvider) {
             templateUrl: "app/components/categories/categoryPageView.html",
             controller: "categoryProducts"
         })
+        .when("/category/edit/:categoryId", {
+            templateUrl: "app/components/categories/categoryEditCreateView.html",
+            controller: "categoryEditCreate"
+        })
         .when("/newproducts", {
             templateUrl: "app/components/products/newProductsView.html",
             controller: "newProducts"

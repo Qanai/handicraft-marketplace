@@ -32,10 +32,15 @@ app.factory("store", ["$http", "$q", "$log", "dataSource", "user", function ($ht
 
         $http.get(dataSource.databaseUrl + "stores?_expand=user").then(
             function (response) {
-                async.resolve(response.data);
+                var allStores = [];
+                response.data.forEach(function(s){
+                    allStores.push(new Store(s));
+                });
+                async.resolve(allStores);
             },
             function (err) {
                 $log.error(err);
+                async.reject("Failed loading all the stores");
             }
         );
 

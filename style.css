@@ -44,4 +44,16 @@
   background-color: #333333;
 }
 
+.dasboard-form fieldset {
+  padding: 0.5em;
+  margin-bottom: 0.6em;
+  border: 1px solid #0000001a;
+  box-shadow: inset 0 2px 3px #ffffff4d, inset 0 -2px 3px #0000004d, 0 1px 1px #ffffffe6;
+}
+.dasboard-form fieldset legend {
+  width: auto;
+  padding: 0 6px;
+  font-size: 1.3rem;
+}
+
 /*# sourceMappingURL=style.css.map */
