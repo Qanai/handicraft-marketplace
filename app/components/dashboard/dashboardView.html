@@ -4,9 +4,11 @@
     <div ng-show="isAuthorized('Seller')">
         <h5>Stores</h5>
         <store-card list="stores" manage="true"></store-card>
+        <button type="button" class="btn btn-info my-3" ng-click="addStore()">Add Store</button>
     </div>
     <div ng-show="isAuthorized('Admin')">
         <h5>Categories</h5>
         <category-cards list="categories" manage="true"></category-cards>
+        <button type="button" class="btn btn-info my-3">Add Store</button>
     </div>
 </div>

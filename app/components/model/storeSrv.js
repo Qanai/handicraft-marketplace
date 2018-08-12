@@ -20,11 +20,19 @@ app.factory("store", ["$http", "$q", "$log", "dataSource", "user", function ($ht
     }
 
     function create(plainObj) {
+        var async = $q.defer();
+
         if (!plainObj) {
-            plainObj = {};
+            plainObj = {
+                userId: user.getActiveUserId(),
+                joined: (new Date()).getTime()
+            };
         }
-        // return plainObj ? new Store(plainObj) : null;
-        return new Store(plainObj);
+
+        var prod = new Store(plainObj);
+        async.resolve(prod);
+
+        return async.promise;
     }
 
     function getAll() {
@@ -33,7 +41,7 @@ app.factory("store", ["$http", "$q", "$log", "dataSource", "user", function ($ht
         $http.get(dataSource.databaseUrl + "stores?_expand=user").then(
             function (response) {
                 var allStores = [];
-                response.data.forEach(function(s){
+                response.data.forEach(function (s) {
                     allStores.push(new Store(s));
                 });
                 async.resolve(allStores);
@@ -120,7 +128,7 @@ app.factory("store", ["$http", "$q", "$log", "dataSource", "user", function ($ht
     function add(storeData) {
         var async = $q.defer();
 
-        $http.post(dataSource.databaseUrl + "stores", userData).then(
+        $http.post(dataSource.databaseUrl + "stores", storeData).then(
             function (response) {
                 var newStore = new Store(response.data);
                 async.resolve(newStore);

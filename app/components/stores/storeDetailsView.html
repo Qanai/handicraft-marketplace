@@ -20,7 +20,10 @@
     </div>
     {{store.categoryId}}
     <div>
-        {{store.user.name}}
+        Contact owner:
+        <a href="mailto:{{store.user.email}}">
+            <i class="fas fa-envelope"></i>{{store.user.name}}
+        </a>
     </div>
     <div class="mt-3" ng-show="store.products">
         <h5>Products</h5>

@@ -27,5 +27,9 @@ app.controller("dashboard", ["$scope", "$location", "$log", "user", "store", "ca
         return user.isAuthorized(role);
     }
 
+    $scope.addStore = function() {
+        $location.path("/store/edit/new");
+    }
+
     init();
 }]);

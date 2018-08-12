@@ -9,7 +9,7 @@ app.factory("productService", ["$http", "$q", "$log", "dataSource", "store", fun
         this.price = plainProduct.price;
         this.added = plainProduct.added ? new Date(plainProduct.added) : null;
         this.storeId = plainProduct.storeId;
-        this.store = store.create(plainProduct.store);
+        this.store = store.create(plainProduct.store).then(function (ps) { return ps });
     }
 
     function getByCategory(categoryId) {

@@ -20,64 +20,74 @@ app.controller("storeEditCreate", ["$scope", "$routeParams", "$location", "$log"
     $scope.editedStore = null;
 
     function init() {
+        // $log.log($routeParams);
+        var getStore = null;
+
         var storeId = parseInt($routeParams.storeId);
         if (isNaN(storeId)) {
-            $scope.editedStore = store.create();
+            // $scope.editedStore = store.create();
+            getStore = store.create();
         } else {
-            store.getById(storeId).then(
-                function (dbStore) {
-                    $scope.editedStore = dbStore;
-                    return productService.getByStore(dbStore.id);
-                }
-            ).then(
-                function (prods) {
-                    $scope.editedStore.products = prods;
-                    return category.getAll();
-                },
-                function (err) {
-                    $scope.editedStore.products = [];
-                    return category.getAll();
-                }
-            ).then(
-                function (results) {
-                    var allCats = [];
-                    results.forEach(function (cat) {
-                        var choiceCat = cat;
-                        choiceCat.selected = $scope.editedStore.categoryId.some(function (c) {
-                            return choiceCat.id == c;
-                        });
-
-                        allCats.push(choiceCat);
-                    });
-                    $scope.allCategories = allCats;
-                }
-            );
+            getStore = store.getById(storeId);
         }
+
+        getStore.then(
+            function (dbStore) {
+                $scope.editedStore = dbStore;
+                return productService.getByStore(dbStore.id);
+            }
+        ).then(
+            function (prods) {
+                $scope.editedStore.products = prods;
+                return category.getAll();
+            },
+            function (err) {
+                $scope.editedStore.products = [];
+                return category.getAll();
+            }
+        ).then(
+            function (results) {
+                var allCats = [];
+                results.forEach(function (cat) {
+                    var choiceCat = cat;
+                    choiceCat.selected = $scope.editedStore.categoryId.some(function (c) {
+                        return choiceCat.id == c;
+                    });
+
+                    allCats.push(choiceCat);
+                });
+                $scope.allCategories = allCats;
+            }
+        );
 
         // $timeout(function () {
         //     $log.log($scope.editedStore);
         // }, 2000);
     }
 
-    init();
-
-    $scope.editStore = function () {
-        // $log.log($scope.allCategories);
-        // $log.log($scope.editedStore);
-        // $log.log($scope.image);
-
-        // Edit store categories
+    function setCategories() {
         $scope.editedStore.categoryId.splice(0, $scope.editedStore.categoryId.length);
         for (var i = 0; i < $scope.allCategories.length; i++) {
             if ($scope.allCategories[i].selected) {
                 $scope.editedStore.categoryId.push($scope.allCategories[i].id);
             }
         }
+    }
 
-        // Edit store image
+
+    function setImage() {
         if ($scope.image) {
             $scope.editedStore.imageUrl = $scope.image.dataURL;
         }
+    }
+
+
+    function updateStore() {
+        // Edit store categories
+        setCategories();
+
+        // Edit store image
+        setImage();
 
         // Update store in DB
         store.update($scope.editedStore).then(
@@ -90,4 +100,36 @@ app.controller("storeEditCreate", ["$scope", "$routeParams", "$location", "$log"
             }
         );
     }
+
+    function addStore() {
+        // Edit store categories
+        setCategories();
+
+        // Edit store image
+        setImage();
+
+        // Update store in DB
+        store.add($scope.editedStore).then(
+            function (newStore) {
+                $location.path("/dashboard");
+            },
+            function (err) {
+                $log.error(err);
+            }
+        );
+    }
+
+    $scope.editStore = function () {
+        // $log.log($scope.allCategories);
+        // $log.log($scope.editedStore);
+        // $log.log($scope.image);
+
+        if ($scope.editedStore.id) {
+            updateStore();
+        } else {
+            addStore();
+        }
+    }
+
+    init();
 }]);
