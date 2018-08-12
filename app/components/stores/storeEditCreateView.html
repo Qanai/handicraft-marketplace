@@ -38,10 +38,10 @@
                         <label class="form-check-label" for="chk{{cat.name.replace(' ', '')}}">{{cat.name}}</label>
                     </div>
                 </fieldset>
-                <fieldset>
+                <fieldset ng-show="editedStore.id">
                     <legend>Products</legend>
                     <store-card list="editedStore.products" manage="true" ngclass="store"></store-card>
-                    <button type="button" class="btn btn-info my-3">Add Product</button>
+                    <button type="button" class="btn btn-info my-3" ng-click="addProduct()">Add Product</button>
                 </fieldset>
                 <div class="form-group">
                     <label for="image">Load Image</label>

@@ -9,7 +9,30 @@ app.factory("productService", ["$http", "$q", "$log", "dataSource", "store", fun
         this.price = plainProduct.price;
         this.added = plainProduct.added ? new Date(plainProduct.added) : null;
         this.storeId = plainProduct.storeId;
-        this.store = store.create(plainProduct.store).then(function (ps) { return ps });
+        this.store = store.create(plainProduct.store).then(
+            function (ps) {
+                return ps;
+            });
+    }
+
+    function create(storeId) {
+        var async = $q.defer();
+
+        store.getById(storeId).then(
+            function (objStore) {
+                var plainObj = {
+                    storeId: storeId,
+                    store: objStore,
+                    added: (new Date()).getTime()
+                };
+
+                var prod = new Product(plainObj);
+                $log.log(prod.store);
+                async.resolve(prod);
+            }
+        );
+
+        return async.promise;
     }
 
     function getByCategory(categoryId) {
@@ -102,6 +125,7 @@ app.factory("productService", ["$http", "$q", "$log", "dataSource", "store", fun
     }
 
     return {
+        create: create,
         getByCategory: getByCategory,
         getNew: getNew,
         getById: getById,

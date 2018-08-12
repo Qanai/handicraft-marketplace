@@ -29,8 +29,8 @@ app.factory("store", ["$http", "$q", "$log", "dataSource", "user", function ($ht
             };
         }
 
-        var prod = new Store(plainObj);
-        async.resolve(prod);
+        var store = new Store(plainObj);
+        async.resolve(store);
 
         return async.promise;
     }

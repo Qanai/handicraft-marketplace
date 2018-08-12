@@ -1,7 +1,7 @@
 <navbar></navbar>
 <div class="container">
     <h4>
-        Edit Product
+        Edit Product <span ng-if="editedProduct.store">for {{editedProduct.store}}</span>
     </h4>
     <div class="row justify-content-md-center">
         <div class="col-sm-8">
@@ -10,6 +10,33 @@
                     <label for="name">Product name</label>
                     <input type="text" class="form-control" id="name" placeholder="Enter product name" ng-model="editedProduct.name">
                 </div>
+                <div class="form-group">
+                    <label for="about">Description</label>
+                    <textarea class="form-control" rows="5" id="about" ng-model="editedProduct.description"></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="name">Price</label>
+                    <input type="number" class="form-control half" id="price" placeholder="Enter product price" ng-model="editedProduct.price">
+                </div>
+                <fieldset>
+                    <legend>Categories</legend>
+                    <div class="form-check form-check-inline" ng-repeat="cat in allCategories">
+                        <input class="form-check-input" type="checkbox" name="allCategories[]" id="chk{{cat.name.replace(' ', '')}}" value="{{cat.id}}" ng-model="cat.selected">
+                        <label class="form-check-label" for="chk{{cat.name.replace(' ', '')}}">{{cat.name}}</label>
+                    </div>
+                </fieldset>
+                <div class="form-group">
+                    <label for="image">Load Image</label>
+                    <input type="file" accept="image/*" image="image" id="image" />
+                </div>
+                <div class="my-3">
+                    <img ng-hide="image" class="img-fluid" ng-src="{{editedProduct.imageUrl}}" alt="{{editedProduct.name}}" >
+                </div>
+                <div class="my-3">
+                    <img ng-show="image" class="img-fluid" ng-src="{{image.url}}" alt="{{name}}" >
+                </div>
+                <button type="button" class="btn btn-primary my-3" ng-click="editProduct()">Save Changes</button>
+                <a ng-href="/#!/store/edit/{{editedProduct.storeId}}" class="btn btn-success my-3">Return to Store</a>
             </form>
         </div>
     </div>

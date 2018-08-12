@@ -32,6 +32,10 @@ app.config(["$routeProvider", function ($routeProvider) {
             templateUrl: "app/components/products/productDetailsView.html",
             controller: "productDetails"
         })
+        .when("/product/edit/new/:storeId", {
+            templateUrl: "app/components/products/productEditCreateView.html",
+            controller: "productEditCreate"
+        })
         .when("/product/edit/:productId", {
             templateUrl: "app/components/products/productEditCreateView.html",
             controller: "productEditCreate"

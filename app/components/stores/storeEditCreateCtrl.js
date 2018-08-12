@@ -74,13 +74,11 @@ app.controller("storeEditCreate", ["$scope", "$routeParams", "$location", "$log"
         }
     }
 
-
     function setImage() {
         if ($scope.image) {
             $scope.editedStore.imageUrl = $scope.image.dataURL;
         }
     }
-
 
     function updateStore() {
         // Edit store categories
@@ -129,6 +127,10 @@ app.controller("storeEditCreate", ["$scope", "$routeParams", "$location", "$log"
         } else {
             addStore();
         }
+    }
+
+    $scope.addProduct = function(){
+        $location.path("/product/edit/new/" + $scope.editedStore.id);
     }
 
     init();
