@@ -8,19 +8,13 @@ app.factory("user", ["$http", "$q", "$log", "role", "dataSource", function ($htt
         this.role = role.create(plainUser.role);
     }
 
-    //var activeUser = null;
+    var activeUser = null;
 
-    var activeUser = new User({
-        "name": "Judy Seller",
-        "email": "judy@sell.com",
-        "password": "1234",
-        "roleId": 3,
-        "id": 7,
-        "role": {
-            "id": 3,
-            "name": "Seller"
+    getById(5).then(
+        function (u) {
+            activeUser = u;
         }
-    });
+    );
 
     // var activeUser = new User({
     //     "id": 1,
@@ -33,6 +27,23 @@ app.factory("user", ["$http", "$q", "$log", "role", "dataSource", function ($htt
     //         "name": "Admin"
     //     }
     // });
+
+    function getById(id) {
+        var async = $q.defer();
+
+        $http.get(dataSource.databaseUrl + "users/" + id + "?_expand=role").then(
+            function (response) {
+                var usr = new User(response.data);
+                async.resolve(usr);
+            },
+            function (err) {
+                $log.error(err);
+                async.reject();
+            }
+        );
+
+        return async.promise;
+    }
 
     function create(plainObj) {
         return plainObj ? new User(plainObj) : null;
@@ -97,6 +108,25 @@ app.factory("user", ["$http", "$q", "$log", "role", "dataSource", function ($htt
         return async.promise;
     }
 
+    function update(userData) {
+        $log.log(userData);
+
+        var async = $q.defer();
+
+        $http.put(dataSource.databaseUrl + "users/" + userData.id, userData).then(
+            function (response) {
+                var newUser = new User(response.data);
+                async.resolve(newUser);
+            },
+            function (err) {
+                $log.error(err);
+                async.reject("Failed updating store: " + storeData.id);
+            }
+        );
+
+        return async.promise;
+    }
+
     function logout() {
         activeUser = null;
     }
@@ -115,6 +145,7 @@ app.factory("user", ["$http", "$q", "$log", "role", "dataSource", function ($htt
         getActiveUserId: getActiveUserId,
         getActiveUserRole: getActiveUserRole,
         getActiveUser: getActiveUser,
-        add: add
+        add: add,
+        update: update
     }
 }]);

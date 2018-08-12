@@ -6,6 +6,10 @@
     </div>
     <div class="card-footer">
         <p>{{product.store.name}}</p>
-        <p>{{product.price | currency : "ILS "}}</p>
+        <p>{{product.price | currency : "₪ "}}</p>        
+    </div>
+    <div class="card-footer" ng-show="manage">
+        <button type="button" class="btn btn-success" ng-click="edit(product.id, $event)">Edit</button>
+        <button type="button" class="btn btn-danger">Delete</button>
     </div>
 </div>

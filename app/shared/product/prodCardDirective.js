@@ -1,7 +1,8 @@
-app.directive("productCard", function(){
+app.directive("productCard", function () {
     return {
         scope: {
-            product: "="
+            product: "=",
+            manage: "@"
         },
         templateUrl: "app/shared/product/prodCardView.html",
         controller: "productCardCtrl",

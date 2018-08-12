@@ -49,7 +49,7 @@ app.controller("account", ["$scope", "$location", "$routeParams", "$log", "user"
         var data = {
             name: $scope.name,
             email: $scope.email,
-            password: $scope.pass,
+            password: $scope.password,
             roleId: $scope.userRole ? $scope.userRole.id : -1
         }
 
@@ -64,7 +64,16 @@ app.controller("account", ["$scope", "$location", "$routeParams", "$log", "user"
     }
 
     $scope.editAccount = function () {
-        alert("Not implemented");
+        $scope.user.name = $scope.name;
+        $scope.user.email = $scope.email;
+        $scope.user.password = $scope.password;
+
+        user.update($scope.user).then(
+            function (updatedUser) {
+                user.logout();
+                $location.path("/login");
+            }
+        );
     }
 
     $scope.showDashboard = function () {

@@ -2,4 +2,10 @@ app.controller("productCardCtrl", ["$scope", "$log", "$location", "productServic
     $scope.buy = function(productId) {
         $location.path("/product/" + productId);
     }
+
+    $scope.edit = function (productId, ev) {
+        ev.stopPropagation();
+
+        $location.path("/product/edit/" + productId);
+    }
 }]);

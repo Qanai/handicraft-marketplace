@@ -40,7 +40,11 @@
                 </fieldset>
                 <fieldset ng-show="editedStore.id">
                     <legend>Products</legend>
-                    <store-card list="editedStore.products" manage="true" ngclass="store"></store-card>
+                    <div class="row justify-content-center">
+                        <div class="col-md-4 col-sm-6 d-flex justify-content-stretch mb-3" ng-repeat="prod in editedStore.products">
+                            <product-card product="prod" manage="true"></product-card>
+                        </div>
+                    </div>
                     <button type="button" class="btn btn-info my-3" ng-click="addProduct()">Add Product</button>
                 </fieldset>
                 <div class="form-group">

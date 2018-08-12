@@ -20,8 +20,6 @@ app.factory("store", ["$http", "$q", "$log", "dataSource", "user", function ($ht
     }
 
     function create(plainObj) {
-        var async = $q.defer();
-
         if (!plainObj) {
             plainObj = {
                 userId: user.getActiveUserId(),
@@ -29,8 +27,14 @@ app.factory("store", ["$http", "$q", "$log", "dataSource", "user", function ($ht
             };
         }
 
-        var store = new Store(plainObj);
-        async.resolve(store);
+        return new Store(plainObj);
+    }
+
+    function createAsync(plainObj) {
+        var async = $q.defer();
+
+        var newStore = create(plainObj);
+        async.resolve(newStore);
 
         return async.promise;
     }
@@ -161,6 +165,7 @@ app.factory("store", ["$http", "$q", "$log", "dataSource", "user", function ($ht
 
     return {
         create: create,
+        createAsync: createAsync,
         getAll: getAll,
         getByCategory: getByCategory,
         getById: getById,

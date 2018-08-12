@@ -1,4 +1,4 @@
-app.factory("productService", ["$http", "$q", "$log", "dataSource", "store", function ($http, $q, $log, dataSource, store) {
+app.factory("productService", ["$http", "$q", "$log", "$timeout", "dataSource", "store", function ($http, $q, $log, $timeout, dataSource, store) {
     function Product(plainProduct) {
         this.id = plainProduct.id;
         this.name = plainProduct.name;
@@ -9,10 +9,7 @@ app.factory("productService", ["$http", "$q", "$log", "dataSource", "store", fun
         this.price = plainProduct.price;
         this.added = plainProduct.added ? new Date(plainProduct.added) : null;
         this.storeId = plainProduct.storeId;
-        this.store = store.create(plainProduct.store).then(
-            function (ps) {
-                return ps;
-            });
+        this.store = store.create(plainProduct.store);
     }
 
     function create(storeId) {
@@ -27,7 +24,9 @@ app.factory("productService", ["$http", "$q", "$log", "dataSource", "store", fun
                 };
 
                 var prod = new Product(plainObj);
-                $log.log(prod.store);
+                $timeout(function () {
+                    $log.log(prod.store);
+                }, 2000);
                 async.resolve(prod);
             }
         );
@@ -124,11 +123,47 @@ app.factory("productService", ["$http", "$q", "$log", "dataSource", "store", fun
         return async.promise;
     }
 
+    function add(productData) {
+        var async = $q.defer();
+
+        $http.post(dataSource.databaseUrl + "products", productData).then(
+            function (response) {
+                var newProduct = new Product(response.data);
+                async.resolve(newProduct);
+            },
+            function (err) {
+                $log.error(err);
+                async.reject("Failed creating new store");
+            }
+        );
+
+        return async.promise;
+    }
+
+    function update(productData) {
+        var async = $q.defer();
+
+        $http.put(dataSource.databaseUrl + "products/" + productData.id, productData).then(
+            function (response) {
+                var updatedProduct = new Product(response.data);
+                async.resolve(updatedProduct);
+            },
+            function (err) {
+                $log.error(err);
+                async.reject("Failed updating store: " + productData.id);
+            }
+        );
+
+        return async.promise;
+    }
+
     return {
         create: create,
         getByCategory: getByCategory,
         getNew: getNew,
         getById: getById,
-        getByStore: getByStore
+        getByStore: getByStore,
+        add: add,
+        update: update
     }
 }]);

@@ -26,7 +26,7 @@ app.controller("storeEditCreate", ["$scope", "$routeParams", "$location", "$log"
         var storeId = parseInt($routeParams.storeId);
         if (isNaN(storeId)) {
             // $scope.editedStore = store.create();
-            getStore = store.create();
+            getStore = store.createAsync();
         } else {
             getStore = store.getById(storeId);
         }
@@ -80,6 +80,13 @@ app.controller("storeEditCreate", ["$scope", "$routeParams", "$location", "$log"
         }
     }
 
+    function setEditData() {
+        var updateData = Object.assign({}, $scope.editedStore);
+        delete updateData.user;
+        delete updateData.products;
+        return updateData;
+    }
+    
     function updateStore() {
         // Edit store categories
         setCategories();
@@ -88,7 +95,8 @@ app.controller("storeEditCreate", ["$scope", "$routeParams", "$location", "$log"
         setImage();
 
         // Update store in DB
-        store.update($scope.editedStore).then(
+        var updateData = setEditData();
+        store.update(updateData).then(
             function (updatedStore) {
                 // $scope.editedStore = updatedStore;
                 init();
@@ -107,7 +115,8 @@ app.controller("storeEditCreate", ["$scope", "$routeParams", "$location", "$log"
         setImage();
 
         // Update store in DB
-        store.add($scope.editedStore).then(
+        var addData = setEditData();
+        store.add(addData).then(
             function (newStore) {
                 $location.path("/dashboard");
             },

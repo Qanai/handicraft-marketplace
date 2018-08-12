@@ -61,12 +61,38 @@ app.controller("productEditCreate", ["$scope", "$location", "$log", "$routeParam
         // Edit product image
         setImage();
 
-        // Update product in DB
+        // Update product in DB 
+        var updateData = Object.assign({}, $scope.editedProduct);
+        delete updateData.store;
+        productService.update(updateData).then(
+            function (updatedProduct) {
+                $location.path("/store/edit/" + updatedProduct.storeId);
+            },
+            function (err) {
+                $log.error(err);
+            }
+        );
 
     }
 
     function addProduct() {
+        // Edit product categories
+        setCategories();
 
+        // Edit product image
+        setImage();
+
+        // Update product in DB
+        var addData = Object.assign({}, $scope.editedProduct);
+        delete addData.store;
+        productService.add(addData).then(
+            function (newProduct) {
+                $location.path("/store/edit/" + newProduct.storeId);
+            },
+            function (err) {
+                $log.error(err);
+            }
+        );
     }
 
     $scope.editProduct = function () {
