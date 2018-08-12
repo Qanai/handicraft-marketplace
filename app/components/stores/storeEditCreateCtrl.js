@@ -62,7 +62,32 @@ app.controller("storeEditCreate", ["$scope", "$routeParams", "$location", "$log"
     init();
 
     $scope.editStore = function () {
-        // $log.log($scope);
-        $log.log($scope.editedStore);
+        // $log.log($scope.allCategories);
+        // $log.log($scope.editedStore);
+        // $log.log($scope.image);
+
+        // Edit store categories
+        $scope.editedStore.categoryId.splice(0, $scope.editedStore.categoryId.length);
+        for (var i = 0; i < $scope.allCategories.length; i++) {
+            if ($scope.allCategories[i].selected) {
+                $scope.editedStore.categoryId.push($scope.allCategories[i].id);
+            }
+        }
+
+        // Edit store image
+        if ($scope.image) {
+            $scope.editedStore.imageUrl = $scope.image.dataURL;
+        }
+
+        // Update store in DB
+        store.update($scope.editedStore).then(
+            function (updatedStore) {
+                // $scope.editedStore = updatedStore;
+                init();
+            },
+            function (err) {
+                $log.error(err);
+            }
+        );
     }
 }]);

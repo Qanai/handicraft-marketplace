@@ -38,17 +38,22 @@
                         <label class="form-check-label" for="chk{{cat.name.replace(' ', '')}}">{{cat.name}}</label>
                     </div>
                 </fieldset>
+                <fieldset>
+                    <legend>Products</legend>
+                    <store-card list="editedStore.products" manage="true" ngclass="store"></store-card>
+                    <button type="button" class="btn btn-info my-3">Add Product</button>
+                </fieldset>
                 <div class="form-group">
                     <label for="image">Load Image</label>
                     <input type="file" accept="image/*" image="image" id="image" />
                 </div>
                 <div class="my-3">
-                    <img class="img-fluid" ng-src="{{cat.imageUrl}}" alt="{{name}}" >
+                    <img ng-hide="image" class="img-fluid" ng-src="{{editedStore.imageUrl}}" alt="{{editedStore.name}}" >
                 </div>
                 <div class="my-3">
-                    <img class="img-fluid" ng-src="{{image.url}}" alt="{{name}}" >
+                    <img ng-show="image" class="img-fluid" ng-src="{{image.url}}" alt="{{name}}" >
                 </div>
-                <button type="button" class="btn btn-primary mx-auto" ng-click="editStore()">Save Changes</button>
+                <button type="button" class="btn btn-primary my-3" ng-click="editStore()">Save Changes</button>
             </form>
         </div>
     </div>

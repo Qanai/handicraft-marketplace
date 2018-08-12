@@ -117,11 +117,47 @@ app.factory("store", ["$http", "$q", "$log", "dataSource", "user", function ($ht
         return async.promise;
     }
 
+    function add(storeData) {
+        var async = $q.defer();
+
+        $http.post(dataSource.databaseUrl + "stores", userData).then(
+            function (response) {
+                var newStore = new Store(response.data);
+                async.resolve(newStore);
+            },
+            function (err) {
+                $log.error(err);
+                async.reject("Failed creating new store");
+            }
+        );
+
+        return async.promise;
+    }
+
+    function update(storeData) {
+        var async = $q.defer();
+
+        $http.put(dataSource.databaseUrl + "stores/" + storeData.id, storeData).then(
+            function (response) {
+                var newStore = new Store(response.data);
+                async.resolve(newStore);
+            },
+            function (err) {
+                $log.error(err);
+                async.reject("Failed updating store: " + storeData.id);
+            }
+        );
+
+        return async.promise;
+    }
+
     return {
         create: create,
         getAll: getAll,
         getByCategory: getByCategory,
         getById: getById,
-        getByUser: getByUser
+        getByUser: getByUser,
+        add: add,
+        update: update
     }
 }]);

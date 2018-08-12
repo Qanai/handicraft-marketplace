@@ -1,6 +1,6 @@
 <div class="row">
     <div class="col-md-4 d-flex justify-content-stretch" ng-repeat="store in list">
-        <div class="card border-info" ng-click="displayStore(store.id)">
+        <div class="card border-info" ng-class="{{ngclass}}" ng-click="displayStore(store.id)">
             <img class="card-img-top" ng-src="{{store.imageUrl}}" alt="{{store.name}}">
             <div class="card-body">
                 <h5 class="card-title">{{store.name}}</h5>
