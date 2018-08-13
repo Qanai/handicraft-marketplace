@@ -70,4 +70,12 @@
   border-radius: 40%;
 }
 
+.prod-total-price {
+  font-weight: bold;
+}
+
+.prod-unit-price {
+  font-size: 0.7em;
+}
+
 /*# sourceMappingURL=style.css.map */

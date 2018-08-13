@@ -1,7 +1,39 @@
 <navbar></navbar>
 <div class="container my-3">
-    <div class="row" ng-show="">
-        <div class="col-md-7">Products in cart</div>
+    <div class="d-flex flex-column align-items-center" ng-hide="products">
+        <h5>The cart is empty</h5>
+        <a href="#!/">Shop our stores</a>
+    </div>
+    <div class="row" ng-show="products">
+        <div class="col-md-7">
+            <div class="card my-2" ng-repeat="prod in products">
+                <div class="card-header">
+                    <a ng-href="#!/store/{{prod.store.id}}">
+                        <h5>{{prod.store.name}}</h5>
+                    </a>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-3">
+                            <img class="img-fluid" ng-src="{{prod.imageUrl}}" alt="prod.name">
+                        </div>
+                        <div class="col-md-7">
+                            <h4 class="card-title">{{prod.name}}</h4>
+                            <p class="card-text">{{prod.description}}</p>
+                            
+                        </div>
+                        <div class="col-md-2">
+                            <div class="form-group">
+                                <label for="qty">Quantity:</label>
+                                <input type="number" name="qty" id="qty" min="1" class="form-control" ng-model="prod.quantity">
+                            </div>
+                            <div class="prod-total-price">{{calculateProductPrice(prod) | currency}}</div>
+                            <div class="prod-unit-price" ng-show="prod.quantity > 1">({{prod.price | currency}} each)</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
         <div class="col-md-5">General price</div>
     </div>
 </div>
