@@ -123,6 +123,37 @@ app.factory("productService", ["$http", "$q", "$log", "$timeout", "dataSource", 
         return async.promise;
     }
 
+    function getListById(idList) {
+        var async = $q.defer();
+
+        var qryIds = idList.map(function (id) {
+            return "id=" + id;
+        });
+
+        var query = "products?" + qryIds.join("&");
+
+        $http.get(dataSource.databaseUrl + query + "&_expand=store").then(
+            function (response) {
+                if (response.data.length > 0) {
+                    var prodList = [];
+                    response.data.forEach(function (p) {
+                        prodList.push(new Product(p));
+                    });
+
+                    async.resolve(prodList);
+                } else {
+                    async.reject("Not found");
+                }
+            },
+            function(err){
+                $log.error(err);
+                async.reject("Failed loading products: " + ids.join(", "));
+            }
+        );
+
+        return async.promise;
+    }
+
     function add(productData) {
         var async = $q.defer();
 
@@ -163,6 +194,7 @@ app.factory("productService", ["$http", "$q", "$log", "$timeout", "dataSource", 
         getNew: getNew,
         getById: getById,
         getByStore: getByStore,
+        getListById: getListById,
         add: add,
         update: update
     }

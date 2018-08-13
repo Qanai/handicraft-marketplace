@@ -1,4 +1,4 @@
-app.controller("navbarCtrl", ["$scope", "$location", "user", function ($scope, $location, user) {
+app.controller("navbarCtrl", ["$scope", "$location", "user", "cartSrv", function ($scope, $location, user, cartSrv) {
     $scope.isAuthenticated = function () {
         return user.isAuthenticated();
     }
@@ -7,16 +7,20 @@ app.controller("navbarCtrl", ["$scope", "$location", "user", function ($scope, $
         return user.isAuthorized(role);
     }
 
-    $scope.userName = function(){
+    $scope.userName = function () {
         return user.getActiveUserName();
     }
 
-    $scope.accountUrl = function(){
+    $scope.accountUrl = function () {
         return "account/" + user.getActiveUserId();
     }
 
-    $scope.logout = function(){
+    $scope.logout = function () {
         user.logout();
         $location.path("/");
+    }
+
+    $scope.cartCount = function () {
+        return cartSrv.getProductCount();
     }
 }]);

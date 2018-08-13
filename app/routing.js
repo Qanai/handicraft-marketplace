@@ -52,6 +52,10 @@ app.config(["$routeProvider", function ($routeProvider) {
             templateUrl: "app/components/dashboard/dashboardView.html",
             controller: "dashboard"
         })
+        .when("/cart", {
+            templateUrl: "app/components/cart/cartView.html",
+            controller: "cartCtrl"
+        })
         .otherwise({
             redirectTo: "/"
         })

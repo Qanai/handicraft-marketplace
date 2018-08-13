@@ -10,11 +10,11 @@ app.factory("user", ["$http", "$q", "$log", "role", "dataSource", function ($htt
 
     var activeUser = null;
 
-    getById(5).then(
-        function (u) {
-            activeUser = u;
-        }
-    );
+    // getById(5).then(
+    //     function (u) {
+    //         activeUser = u;
+    //     }
+    // );
 
     // var activeUser = new User({
     //     "id": 1,
