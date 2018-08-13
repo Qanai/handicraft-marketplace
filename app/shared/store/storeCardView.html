@@ -1,4 +1,4 @@
-<div class="row">
+<div class="row" ng-class="{'justify-content-center': align == 'center'}">
     <div class="col-md-4 d-flex justify-content-stretch" ng-repeat="store in list">
         <div class="card border-info" ng-class="{{ngclass}}" ng-click="displayStore(store.id)">
             <img class="card-img-top" ng-src="{{store.imageUrl}}" alt="{{store.name}}">

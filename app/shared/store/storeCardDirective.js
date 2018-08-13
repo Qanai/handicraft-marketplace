@@ -3,7 +3,8 @@ app.directive("storeCard", function(){
         scope: {
             list: "=",
             manage: "@",
-            ngclass: "@"
+            ngclass: "@",
+            align: "@"
         },
         templateUrl: "app/shared/store/storeCardView.html",
         controller: "storeCardCtrl",
