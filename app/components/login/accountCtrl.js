@@ -1,7 +1,11 @@
 app.controller("account", ["$scope", "$location", "$routeParams", "$log", "user", "role", function ($scope, $location, $routeParams, $log, user, role) {
     function init() {
 
-        // $log.log($routeParams);
+        // Checking if the user is logged in, if not navigating back to home page
+        if (!user.isAuthenticated()) {
+            $location.path("/");
+            return;
+        }
 
         $scope.user = user.getActiveUser();
         $scope.userRole = $scope.user ? $scope.user.role : null;

@@ -55,7 +55,7 @@ app.factory("cartSrv", ["$q", "$log", "$filter", "user", "productService", "stor
     function getTotalItems() {
         var count = 0;
 
-        for(var i = 0; i < activeCart.products.length; i++){
+        for (var i = 0; i < activeCart.products.length; i++) {
             count += activeCart.products[i].quantity;
         }
 
@@ -65,11 +65,39 @@ app.factory("cartSrv", ["$q", "$log", "$filter", "user", "productService", "stor
     function cartPrice() {
         var price = 0;
 
-        for(var i = 0; i < activeCart.products.length; i++){
+        for (var i = 0; i < activeCart.products.length; i++) {
             price += activeCart.products[i].wholePrice();
         }
 
         return price;
+    }
+
+    function assignUser(userId) {
+        activeCart.userId = userId;
+    }
+
+    function checkOut() {
+        var async = $q.defer();
+
+        var promises = [];
+        for (var i = 0; i < activeCart.products.length; i++) {
+            promises.push(productService.update({
+                id: activeCart.products[i].product.id,
+                sales: activeCart.products[i].product.sales + activeCart.products[i].quantity
+            }));
+        }
+
+        $q.all(promises).then(
+            function (results) {
+                async.resolve();
+            },
+            function (err) {
+                $log.error(err);
+                async.reject("Failed Update sales");
+            }
+        );
+
+        return async.promise;
     }
 
     return {
@@ -81,6 +109,8 @@ app.factory("cartSrv", ["$q", "$log", "$filter", "user", "productService", "stor
         getAllProducts: getAllProducts,
         getProductPrice: getProductPrice,
         cartPrice: cartPrice,
-        getTotalItems: getTotalItems
+        getTotalItems: getTotalItems,
+        assignUser: assignUser,
+        checkOut: checkOut
     }
 }]);

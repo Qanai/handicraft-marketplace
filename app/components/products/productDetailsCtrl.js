@@ -23,5 +23,21 @@ app.controller("productDetails", ["$scope", "$location", "$log", "$routeParams",
         $location.path("/cart");
     }
 
+    $scope.rate = function () {
+        var data = {
+            id: $scope.product.id,
+            rating: $scope.product.rating + 1
+        }
+
+        productService.update(data).then(
+            function (prod) {
+                init();
+            },
+            function (err) {
+                $log.error(err);
+            }
+        );
+    }
+
     init();
 }]);

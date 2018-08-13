@@ -7,6 +7,8 @@ app.factory("productService", ["$http", "$q", "$log", "$timeout", "dataSource", 
         this.storeId = plainProduct.storeId;
         this.categoryId = plainProduct.categoryId || [];
         this.price = plainProduct.price;
+        this.rating = plainProduct.rating || 0;
+        this.sales = plainProduct.sales || 0;
         this.added = plainProduct.added ? new Date(plainProduct.added) : null;
         this.storeId = plainProduct.storeId;
         this.store = store.create(plainProduct.store);
@@ -174,7 +176,7 @@ app.factory("productService", ["$http", "$q", "$log", "$timeout", "dataSource", 
     function update(productData) {
         var async = $q.defer();
 
-        $http.put(dataSource.databaseUrl + "products/" + productData.id, productData).then(
+        $http.patch(dataSource.databaseUrl + "products/" + productData.id, productData).then(
             function (response) {
                 var updatedProduct = new Product(response.data);
                 async.resolve(updatedProduct);

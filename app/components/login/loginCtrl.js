@@ -1,4 +1,4 @@
-app.controller("login", ["$scope", "$location", "user", function ($scope, $location, user) {
+app.controller("login", ["$scope", "$location", "$routeParams", "user", function ($scope, $location, $routeParams, user) {
     $scope.failedLogin = false;
 
     $scope.signin = function () {
@@ -9,7 +9,13 @@ app.controller("login", ["$scope", "$location", "user", function ($scope, $locat
                     case "Seller":
                         $location.path("/dashboard");
                         break;
-
+                    case "Buyer":
+                        if ($routeParams.ref == "buy") {
+                            $location.path("/checkout");
+                        } else {
+                            $location.path("/");
+                        }
+                        break;
                     default:
                         $location.path("/");
                         break;

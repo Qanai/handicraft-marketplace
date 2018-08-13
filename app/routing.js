@@ -8,6 +8,10 @@ app.config(["$routeProvider", function ($routeProvider) {
             templateUrl: "app/components/login/loginView.html",
             controller: "login"
         })
+        .when("/login/:ref", {
+            templateUrl: "app/components/login/loginView.html",
+            controller: "login"
+        })
         .when("/account/:spec", {
             templateUrl: "app/components/login/accountView.html",
             controller: "account"
@@ -55,6 +59,10 @@ app.config(["$routeProvider", function ($routeProvider) {
         .when("/cart", {
             templateUrl: "app/components/cart/cartView.html",
             controller: "cartCtrl"
+        })
+        .when("/checkout", {
+            templateUrl: "app/components/cart/checkOutView.html",
+            controller: "checkout"
         })
         .otherwise({
             redirectTo: "/"

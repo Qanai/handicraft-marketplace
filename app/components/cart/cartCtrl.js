@@ -24,5 +24,13 @@ app.controller("cartCtrl", ["$scope", "$location", "$log", "cartSrv", "user", fu
         cartSrv.removeProduct(prod);
     }
 
+    $scope.buyAll = function() {
+        if (user.isAuthenticated()) {
+            $location.path("/checkout");
+        } else {
+            $location.path("/login/buy");
+        }
+    }
+
     init();
 }]);
