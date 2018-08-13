@@ -1,7 +1,10 @@
 app.factory("cartSrv", ["$q", "$log", "$filter", "user", "productService", "store", function ($q, $log, $filter, user, productService, store) {
     function CartProduct(plainObj) {
-        this.productId = plainObj.productId;
+        this.product = plainObj.product;
         this.quantity = plainObj.quantity;
+    }
+    CartProduct.prototype.wholePrice = function () {
+        return this.product.price * this.quantity;
     }
 
     function Cart(plainCart) {
@@ -9,7 +12,9 @@ app.factory("cartSrv", ["$q", "$log", "$filter", "user", "productService", "stor
         this.products = plainCart.products || [];
     }
     Cart.prototype.getProductById = function (id) {
-        return $filter("filter")(this.products, { productId: id });
+        return $filter("filter")(this.products, {
+            productId: id
+        });
     }
 
     var activeCart = create();
@@ -40,30 +45,31 @@ app.factory("cartSrv", ["$q", "$log", "$filter", "user", "productService", "stor
     }
 
     function getAllProducts() {
-        var async = $q.defer();
+        return activeCart.products;
+    }
 
-        if (activeCart.products.length > 0) {
-            var ids = activeCart.products.map(function (cartProd) {
-                return cartProd.productId;
-            });
+    function getProductPrice(product) {
+        return product.wholePrice();
+    }
 
-            productService.getListById(ids).then(
-                function (prodList) {
-                    prodList.forEach(function (prod) {
-                        prod.quantity = activeCart.getProductById(prod.id);
-                    });
-                    async.resolve(prodList);
-                },
-                function (err) {
-                    $log.error(err);
-                    async.regect("No product in cart");
-                }
-            );
-        } else {
-            async.reject("Cart is empty");
+    function getTotalItems() {
+        var count = 0;
+
+        for(var i = 0; i < activeCart.products.length; i++){
+            count += activeCart.products[i].quantity;
         }
 
-        return async.promise;
+        return count;
+    }
+
+    function cartPrice() {
+        var price = 0;
+
+        for(var i = 0; i < activeCart.products.length; i++){
+            price += activeCart.products[i].wholePrice();
+        }
+
+        return price;
     }
 
     return {
@@ -72,6 +78,9 @@ app.factory("cartSrv", ["$q", "$log", "$filter", "user", "productService", "stor
         addProduct: addProduct,
         removeProduct: removeProduct,
         empty: empty,
-        getAllProducts: getAllProducts
+        getAllProducts: getAllProducts,
+        getProductPrice: getProductPrice,
+        cartPrice: cartPrice,
+        getTotalItems: getTotalItems
     }
 }]);

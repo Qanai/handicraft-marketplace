@@ -16,7 +16,7 @@ app.controller("productDetails", ["$scope", "$location", "$log", "$routeParams",
     $scope.addCart = function () {
         // $log.log($scope.product);
         var data = {
-            productId: $scope.product.id,
+            product: $scope.product,
             quantity: 1
         };
         cartSrv.addProduct(data);

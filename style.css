@@ -78,4 +78,8 @@
   font-size: 0.7em;
 }
 
+.cart-page .card {
+  cursor: default;
+}
+
 /*# sourceMappingURL=style.css.map */

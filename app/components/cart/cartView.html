@@ -1,26 +1,26 @@
 <navbar></navbar>
-<div class="container my-3">
-    <div class="d-flex flex-column align-items-center" ng-hide="products">
+<div class="container cart-page my-3">
+    <div class="d-flex flex-column align-items-center shadow p-3 m-5 rounded" ng-hide="products.length">
         <h5>The cart is empty</h5>
         <a href="#!/">Shop our stores</a>
     </div>
-    <div class="row" ng-show="products">
+    <div class="row" ng-show="products.length">
         <div class="col-md-7">
             <div class="card my-2" ng-repeat="prod in products">
                 <div class="card-header">
-                    <a ng-href="#!/store/{{prod.store.id}}">
-                        <h5>{{prod.store.name}}</h5>
+                    <a ng-href="#!/store/{{prod.product.store.id}}">
+                        <h5>{{prod.product.store.name}}</h5>
                     </a>
                 </div>
                 <div class="card-body">
                     <div class="row">
                         <div class="col-md-3">
-                            <img class="img-fluid" ng-src="{{prod.imageUrl}}" alt="prod.name">
+                            <img class="img-fluid" ng-src="{{prod.product.imageUrl}}" alt="prod.product.name">
                         </div>
                         <div class="col-md-7">
-                            <h4 class="card-title">{{prod.name}}</h4>
-                            <p class="card-text">{{prod.description}}</p>
-                            
+                            <h4 class="card-title">{{prod.product.name}}</h4>
+                            <p class="card-text">{{prod.product.description}}</p>
+                            <button type="button" class="btn btn-outline-secondary btn-sm" ng-click="removeProduct(prod)">Remove</button>
                         </div>
                         <div class="col-md-2">
                             <div class="form-group">
@@ -28,12 +28,25 @@
                                 <input type="number" name="qty" id="qty" min="1" class="form-control" ng-model="prod.quantity">
                             </div>
                             <div class="prod-total-price">{{calculateProductPrice(prod) | currency}}</div>
-                            <div class="prod-unit-price" ng-show="prod.quantity > 1">({{prod.price | currency}} each)</div>
+                            <div class="prod-unit-price" ng-show="prod.quantity > 1">({{prod.product.price | currency}} each)</div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="col-md-5">General price</div>
+        <div class="col-md-5">
+            <div class="border border-info rounded my-2 p-3">
+                <div class="shadow-sm p-1 mb-2">
+                    <dl class="row">
+                        <dd class="col-md-4">Total items:</dd>
+                        <dt class="col-md-8">{{totalItems()}}</dt>
+                        <dd class="col-md-4">Total price:</dd>
+                        <dt class="col-md-8">{{totalPrice()}}</dt>
+                    </dl>
+                </div>
+                <button type="button" class="btn btn-warning btn-block" ng-click="emptyCart()">Empty cart</button>
+                <button type="button" class="btn btn-primary btn-block">Buy All</button>
+            </div>
+        </div>
     </div>
 </div>
