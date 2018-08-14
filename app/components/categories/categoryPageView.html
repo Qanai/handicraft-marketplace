@@ -8,12 +8,13 @@
         <div class="col-md-8">
             <div class="row">
                 <div class="col">
-                        <p>Filtering</p>
-                    </div>
+                    <p>Filtering</p>
+                </div>
             </div>
             <div class="row">
-                <div ng-show="canDisplay()">
+                <div class="col-10 d-flex flex-column align-items-center shadow p-3 m-5 rounded" ng-show="noProducts()">
                     <h5>No products found</h5>
+                    <a href="#!/">Shop our stores</a>
                 </div>
                 <div class="col-md-3 col-sm-6 d-flex justify-content-stretch mb-3" ng-repeat="prod in products">
                     <product-card product="prod"></product-card>

@@ -8,7 +8,7 @@ app.controller("categoryProducts", ["$scope", "$log", "$location", "$routeParams
         }
     );
 
-    $scope.canDisplay = function() {
+    $scope.noProducts = function() {
         return !$scope.products || ($scope.products.length == 0)
     }
 
