@@ -27,8 +27,8 @@
                                 <label for="qty">Quantity:</label>
                                 <input type="number" name="qty" id="qty" min="1" class="form-control" ng-model="prod.quantity">
                             </div>
-                            <div class="prod-total-price">{{calculateProductPrice(prod) | currency}}</div>
-                            <div class="prod-unit-price" ng-show="prod.quantity > 1">({{prod.product.price | currency}} each)</div>
+                            <div class="prod-total-price">{{calculateProductPrice(prod) | currency : "₪"}}</div>
+                            <div class="prod-unit-price" ng-show="prod.quantity > 1">({{prod.product.price | currency : "₪"}} each)</div>
                         </div>
                     </div>
                 </div>
@@ -41,7 +41,7 @@
                         <dd class="col-md-4">Total items:</dd>
                         <dt class="col-md-8">{{totalItems()}}</dt>
                         <dd class="col-md-4">Total price:</dd>
-                        <dt class="col-md-8">{{totalPrice()}}</dt>
+                        <dt class="col-md-8">{{totalPrice() | currency : "₪"}}</dt>
                     </dl>
                 </div>
                 <button type="button" class="btn btn-warning btn-block" ng-click="emptyCart()">Empty cart</button>

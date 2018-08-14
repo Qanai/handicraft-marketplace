@@ -1,24 +1,68 @@
 <navbar></navbar>
 <div class="container">
     <h3>Checkout</h3>
-    <div class="row">
+    <div class="d-flex flex-column align-items-center shadow p-3 m-5 rounded" ng-show="purchaseSuccess">
+        <h4>Thank you for buying with Handicraft Marketplace!</h4>
+        <p>
+            <h5>Your purchase will be sent to:</h5>
+            <div>
+                {{activeUser.name}}<br />
+                {{address.street}}<br />
+                {{address.city}}<br />
+                {{address.country}}
+            </div>
+        </p>
+        <a href="#!/">Shop our stores</a>
+    </div>
+    <div class="row" ng-hide="purchaseSuccess">
         <div class="col-md-7">
             <div>
                 <h4>Shipment Info</h4>
-                <form>
-                    data
+                <form class="border border-info rounded p-2 mb-3">
+                    <div class="form-group row">
+                        <label for="uname" class="col-sm-2 col-form-label">Name</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="uname" placeholder="Enter your name" ng-model="activeUser.name">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="uname" class="col-sm-2 col-form-label">Address</label>
+                        <div class="col-sm-4">
+                            <input type="text" class="form-control" id="street" placeholder="Street" ng-model="address.street">
+                        </div>
+                        <div class="col-sm-3">
+                            <input type="text" class="form-control" id="city" placeholder="City" ng-model="address.city">
+                        </div>
+                        <div class="col-sm-3">
+                            <input type="text" class="form-control" id="country" placeholder="Country" ng-model="address.country">
+                        </div>
+                    </div>
                 </form>
             </div>
             <div>
                 <h4>Review purchase</h4>
-                <div ng-repeat="prod in products">
-                    <div>{{prod.name}}</div>
+                <div class="card my-2" ng-repeat="prod in products">
+                    <div class="card-body">
+                        <p>Seller: {{prod.product.store.name}} | <a href="mailto:{{prod.product.user.email}}">Contact seller</a></p>
+                        <div class="row">
+                            <div class="col-md-3">
+                                <img class="img-fluid" ng-src="{{prod.product.imageUrl}}" alt="prod.product.name">
+                            </div>
+                            <div class="col-md-7">
+                                <h5>{{prod.product.name}}</h5>
+                                <div>Quantity: {{prod.quantity}}</div>
+                            </div>
+                            <div class="col-md-2">
+                                <div class="prod-total-price">{{calculateProductPrice(prod) | currency : "₪"}}</div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
         <div class="col-md-5">
             <div>Order Total</div>
-            <button type="button" class="btn btn-block" ng-class="pay()">Confirm and pay</button>
+            <button type="button" class="btn btn-block" ng-click="pay()">Confirm and pay</button>
         </div>
     </div>
 </div>

@@ -1,4 +1,6 @@
 app.controller("checkout", ["$scope", "$location", "$log", "user", "cartSrv", function ($scope, $location, $log, user, cartSrv) {
+    $scope.purchaseSuccess = false;
+
     function init() {
         // Checking if the user is logged in, if not navigating back to home page
         if (!user.isAuthenticated()) {
@@ -8,6 +10,7 @@ app.controller("checkout", ["$scope", "$location", "$log", "user", "cartSrv", fu
 
         cartSrv.assignUser(user.getActiveUserId());
 
+        $scope.activeUser = user.getActiveUser();
         $scope.products = cartSrv.getAllProducts();
     }
 
@@ -15,12 +18,17 @@ app.controller("checkout", ["$scope", "$location", "$log", "user", "cartSrv", fu
         cartSrv.checkOut().then(
             function () {
                 cartSrv.empty();
-                $location.path("/");
+                $scope.purchaseSuccess = true;
+                // $location.path("/");
             },
             function (err) {
                 $log.error(err);
             }
         );
+    }
+
+    $scope.calculateProductPrice = function (prod) {
+        return cartSrv.getProductPrice(prod);
     }
 
     init();

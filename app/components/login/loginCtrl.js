@@ -1,4 +1,4 @@
-app.controller("login", ["$scope", "$location", "$routeParams", "user", function ($scope, $location, $routeParams, user) {
+app.controller("login", ["$scope", "$location", "$routeParams", "$log", "user", function ($scope, $location, $routeParams, $log, user) {
     $scope.failedLogin = false;
 
     $scope.signin = function () {

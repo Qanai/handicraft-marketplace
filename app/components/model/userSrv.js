@@ -59,7 +59,11 @@ app.factory("user", ["$http", "$q", "$log", "role", "dataSource", function ($htt
                     if (plainUser.password === password) {
                         activeUser = new User(plainUser);
                         async.resolve(activeUser);
+                    } else {
+                        async.reject("Invalid credentials");
                     }
+                } else {
+                    async.reject("Invalid credentials");
                 }
             },
             function (err) {
