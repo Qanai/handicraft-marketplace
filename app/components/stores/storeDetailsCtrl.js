@@ -21,6 +21,10 @@ app.controller("storeDetails", ["$scope", "$location", "$log", "$routeParams", "
             }
         );
     }
+    
+    $scope.moreCategories = function () {
+        $location.path("/categories");
+    }
 
     init();
 }]);
