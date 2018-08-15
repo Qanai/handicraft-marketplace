@@ -5,6 +5,10 @@ app.factory("category", ["$http", "$q", "$log", "dataSource", function ($http, $
         this.imageUrl = plainCategory.imageUrl;
     }
 
+    function createNew(plain) {
+        return new Category(plain);
+    }
+
     function getAll() {
         var async = $q.defer();
 
@@ -60,6 +64,7 @@ app.factory("category", ["$http", "$q", "$log", "dataSource", function ($http, $
     }
 
     return {
+        createNew: createNew,
         getAll: getAll,
         getListByIds: getListByIds
     }

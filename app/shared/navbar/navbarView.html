@@ -5,9 +5,29 @@
         <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarDrop#navbarNavDropdown">
-        <form class="form-inline mr-auto my-2 my-lg-0">
-            <input class="form-control mr-sm-2" type="text" placeholder="Search">
-            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+        <form class="search-form form-inline mr-auto my-2 my-lg-0">
+            <input class="form-control mr-sm-2" type="text" placeholder="Search" ng-model="query" ng-change="searchMarket()">
+            <ul class="list-group search-results">
+                <li class="list-group-item list-group-item-action" ng-repeat="res in searchResults">
+                    <div class="row align-items-center" ng-click="redirect(res.path, res.result.id)">
+                        <div class="col-3" ng-if="res.result.imageUrl">
+                            <img ng-src="{{res.result.imageUrl}}" alt="{{res.result.name}}">
+                        </div>
+                        <div class="col">
+                            <h5>{{res.result.name}}</h5>
+                            <div ng-if="res.result.address">{{res.result.address.city}}, {{res.result.address.country}}</div>
+                            <div ng-if="res.result.store">{{res.result.store.name}}</div>
+                        </div>
+                        <div class="col-3" ng-if="res.result.price">
+                            <p>{{res.result.price | currency : "₪"}}</p>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+            <span class="mr-sm-2">in</span>
+            <select class="form-control mr-sm-2" name="searchType" id="searchType" ng-model="searchType" ng-change="searchMarket()" ng-options="st.title for st in searchTypes">
+            </select>
+            <!-- <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button> -->
         </form>
         <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
             <li class="nav-item" ng-hide="isAuthenticated()">

@@ -25,15 +25,19 @@ app.factory("productService", ["$http", "$q", "$log", "$timeout", "dataSource", 
                     added: (new Date()).getTime()
                 };
 
-                var prod = new Product(plainObj);
-                $timeout(function () {
-                    $log.log(prod.store);
-                }, 2000);
+                var prod = createNew(plainObj);
+                // $timeout(function () {
+                //     $log.log(prod.store);
+                // }, 2000);
                 async.resolve(prod);
             }
         );
 
         return async.promise;
+    }
+
+    function createNew(plain) {
+        return new Product(plain);
     }
 
     function getByCategory(categoryId) {
@@ -192,6 +196,7 @@ app.factory("productService", ["$http", "$q", "$log", "$timeout", "dataSource", 
 
     return {
         create: create,
+        createNew: createNew,
         getByCategory: getByCategory,
         getNew: getNew,
         getById: getById,

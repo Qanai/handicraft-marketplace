@@ -82,4 +82,19 @@
   cursor: default;
 }
 
+.search-form {
+  position: relative;
+}
+.search-form .search-results {
+  position: absolute;
+  min-width: 100%;
+  top: calc(100% + 3px);
+  z-index: 2;
+}
+.search-form .search-results img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
 /*# sourceMappingURL=style.css.map */
