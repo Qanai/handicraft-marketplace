@@ -1,18 +1,26 @@
-app.controller("categoryProducts", ["$scope", "$log", "$location", "$routeParams", "productService", function ($scope, $log, $location, $routeParams, productService) {
-    productService.getByCategory($routeParams.categoryId).then(
-        function (response) {
-            $scope.products = response;
-        },
-        function (err) {
-            $log.error(err);
-        }
-    );
+app.controller("categoryProducts", ["$scope", "$q", "$log", "$location", "$routeParams", "productService", "category", function ($scope, $q, $log, $location, $routeParams, productService, category) {
+    function init() {
+        var productsPromise = productService.getByCategory($routeParams.categoryId);
+        var categoryPromise = category.getById($routeParams.categoryId);
 
-    $scope.noProducts = function() {
+        $q.all([productsPromise, categoryPromise]).then(
+            function (response) {
+                $scope.products = response[0];
+                $scope.category = response[1];
+            },
+            function (err) {
+                $log.error(err);
+            }
+        );
+    }
+
+    $scope.noProducts = function () {
         return !$scope.products || ($scope.products.length == 0)
     }
 
-    $scope.moreCategories = function(){
+    $scope.moreCategories = function () {
         $location.path("/categories");
     }
+
+    init();
 }]);

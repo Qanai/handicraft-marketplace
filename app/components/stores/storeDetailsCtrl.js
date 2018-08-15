@@ -1,5 +1,9 @@
 app.controller("storeDetails", ["$scope", "$location", "$log", "$routeParams", "store", "productService", function ($scope, $location, $log, $routeParams, store, productService) {
     function init() {
+        var storesPromise = store.getById($routeParams.storeId);
+        // var categoriesPromise = 
+
+
         store.getById($routeParams.storeId).then(
             function (response) {
                 $scope.store = response;

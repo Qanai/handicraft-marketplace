@@ -1,36 +1,57 @@
 <navbar></navbar>
 <div class="container mt-3">
-    <h4>
-        {{store.name}}
-    </h4>
-    <p>
-        {{store.about}}
-    </p>
-    <div>
-        {{store.address}}
-    </div>
-    <div>
-        <span>Rating:</span> {{store.rating}}
-    </div>
-    <div>
-        <span>Sales:</span> {{store.sales}}
-    </div>
-    <div>
-        <span>Marketplace since</span> {{store.joined | date}}
-    </div>
-    {{store.categoryId}}
-    <div>
-        Contact owner:
-        <a href="mailto:{{store.user.email}}">
-            <i class="fas fa-envelope"></i>{{store.user.name}}
-        </a>
-    </div>
-    <div class="mt-3" ng-show="store.products">
-        <h5>Products</h5>
-        <div class="row justify-content-center">
-            <div class="col-md-2 col-sm-6 d-flex justify-content-stretch mb-3" ng-repeat="prod in store.products">
-                <product-card product="prod"></product-card>
+    <div class="row">
+        <div class="col-md-2">
+            <store-list></store-list>
+        </div>
+        <div class="col-md-8">
+            <div class="row">
+                <div class="col-3">
+                    <img class="img-fluid" ng-src="{{store.imageUrl}}" alt="{{store.name}}">
+                </div>
+                <div class="col">
+                    <h4>
+                        {{store.name}}
+                    </h4>
+                    <p class="shadow-sm rounded p-3">
+                        {{store.about}}
+                    </p>
+                    <div class="address">
+                        <span ng-show="store.address.street">{{store.address.street}},</span> {{store.address.city}}, {{store.address.country}}
+                    </div>
+                    <div>
+                        <span>Rating:</span> {{store.rating}}
+                    </div>
+                    <div>
+                        <span>Sales:</span> {{store.sales}}
+                    </div>
+                    <div>
+                        <span>Marketplace since</span> {{store.joined | date}}
+                    </div>
+                    {{store.categoryId}}
+                    <div>
+                        Contact owner:
+                        <a href="mailto:{{store.user.email}}">
+                            <i class="fas fa-envelope mr-1"></i>{{store.user.name}}
+                        </a>
+                    </div>
+                </div>
             </div>
+            <div class="mt-3" ng-show="store.products">
+                <h5>Products</h5>
+                <div class="row">
+                    <div class="col-md-3 col-sm-6 d-flex justify-content-stretch mb-3" ng-repeat="prod in store.products">
+                        <product-card product="prod"></product-card>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-2">
+            <div ng-if="store.products">
+                <strong>Related Categories</strong>
+                <category-list resource="store.products"></category-list>
+            </div>
+            <button type="button" class="btn btn-outline-warning mt-5" ng-click="moreCategories()">More Categories</button>
         </div>
     </div>
 </div>

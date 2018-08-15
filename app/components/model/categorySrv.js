@@ -32,6 +32,22 @@ app.factory("category", ["$http", "$q", "$log", "dataSource", function ($http, $
         return async.promise;
     }
 
+    function getById(categoryId) {
+        var async = $q.defer();
+
+        $http.get(dataSource.databaseUrl + "categories/" + categoryId).then(
+            function (response) {
+                async.resolve(response.data);
+            },
+            function (err) {
+                $log.error(err);
+                async.reject("Failed loading category: " + categoryId);
+            }
+        );
+
+        return async.promise;
+    }
+
     function getListByIds(ids) {
         var async = $q.defer();
 
@@ -54,7 +70,7 @@ app.factory("category", ["$http", "$q", "$log", "dataSource", function ($http, $
                     async.reject("Not found");
                 }
             },
-            function(err){
+            function (err) {
                 $log.error(err);
                 async.reject("Failed loading categories: " + ids.join(", "));
             }
@@ -66,6 +82,7 @@ app.factory("category", ["$http", "$q", "$log", "dataSource", function ($http, $
     return {
         createNew: createNew,
         getAll: getAll,
-        getListByIds: getListByIds
+        getListByIds: getListByIds,
+        getById: getById
     }
 }]);

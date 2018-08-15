@@ -1,6 +1,6 @@
-app.controller("storeListCtrl", ["$scope", "$log", "$routeParams", "store", function ($scope, $log, $routeParams, store) {
+app.controller("storeListCtrl", ["$scope", "$log", "store", function ($scope, $log, store) {
     function init() {
-        store.getByCategory($routeParams.categoryId).then(
+        store.getByCategory($scope.id).then(
             function (resutls) {
                 $scope.stores = resutls;
             }
