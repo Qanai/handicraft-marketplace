@@ -151,7 +151,7 @@ app.factory("productService", ["$http", "$q", "$log", "$timeout", "dataSource", 
                     async.reject("Not found");
                 }
             },
-            function(err){
+            function (err) {
                 $log.error(err);
                 async.reject("Failed loading products: " + ids.join(", "));
             }
@@ -194,6 +194,29 @@ app.factory("productService", ["$http", "$q", "$log", "$timeout", "dataSource", 
         return async.promise;
     }
 
+    function deleteProduct(product) {
+        var async = $q.defer();
+
+        var productData = Object.assign({}, product);
+        delete productData.store;
+
+        async.reject("json-server has a bug in delete operation");
+
+        // $http.delete(dataSource.databaseUrl + "products/" + productData.id, productData).then(
+        //     function (response) {
+        //         $log.log(response.data);
+        //         async.resolve(response);
+        //     },
+        //     function (err) {
+        //         $log.error(err);
+        //         async.reject("Failed to dele product " + product.id);
+        //     }
+        // );
+
+
+        return async.promise;
+    }
+
     return {
         create: create,
         createNew: createNew,
@@ -203,6 +226,7 @@ app.factory("productService", ["$http", "$q", "$log", "$timeout", "dataSource", 
         getByStore: getByStore,
         getListById: getListById,
         add: add,
-        update: update
+        update: update,
+        deleteProduct: deleteProduct
     }
 }]);
