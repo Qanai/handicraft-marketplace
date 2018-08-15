@@ -1,5 +1,5 @@
 app.controller("categoryGallery", ["$scope", "$location", "$log", "category", function ($scope, $location, $log, category) {
-    $scope.init = function (random) {
+    $scope.init = function (random) {        
         category.getAll().then(
             function (categories) {
                 if (random) {

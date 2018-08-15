@@ -9,17 +9,23 @@
             </div>
         </div>
         <div class="col-md-8">
-            <div class="row">
-                <div class="col">
-                    <p>Filtering</p>
+            <form class="form-inline">
+                <div class="form-group mb-2">
+                    <label for="qry">Filter:</label>
+                    <input type="text" name="qry" id="qry" class="form-control mx-2" placeholder="by name or description" ng-model="fquery">
                 </div>
-            </div>
+                <div class="form-group mb-2">
+                        <select name="sort" id="sort" class="form-control" ng-model="sort" ng-options="opt.field as opt.title for opt in sortOptions">
+                            <option value="">Order by...</option>
+                        </select>
+                    </div>
+                </form>
             <div class="row">
                 <div class="col-10 d-flex flex-column align-items-center shadow p-3 m-5 rounded" ng-show="noProducts()">
                     <h5>No products found</h5>
                     <a href="#!/">Shop our stores</a>
                 </div>
-                <div class="col-md-3 col-sm-6 d-flex justify-content-stretch mb-3" ng-repeat="prod in products">
+                <div class="col-md-3 col-sm-6 d-flex justify-content-stretch mb-3" ng-repeat="prod in products | filter: filterProd | orderBy: sort">
                     <product-card product="prod"></product-card>
                 </div>
             </div>
@@ -29,7 +35,7 @@
             <div ng-if="products">
                 <category-list resource="products"></category-list>
             </div>
-            <button type="button" class="btn btn-outline-warning mt-5" ng-click="moreCategories()">More Categories</button>
+            <button type="button" class="btn btn-outline-warning btn-block mt-5" ng-click="moreCategories()">More Categories</button>
         </div>
     </div>
 </div>
